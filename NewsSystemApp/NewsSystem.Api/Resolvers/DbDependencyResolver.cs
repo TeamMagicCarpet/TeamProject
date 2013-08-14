@@ -13,7 +13,7 @@ namespace NewsSystem.Api.Resolvers
     public class DbDependencyResolver : IDependencyResolver
     {
         //private static DbContext usersContent = new NewsSystemContext();
-        //private static IRepository<User> repository = new DbUsersRepository(NewsSystemContext);
+        //private static IRepository<User> repository = new EfDbRepository(NewsSystemContext);
 
         public IDependencyScope BeginScope()
         {
