@@ -48,33 +48,33 @@ namespace NewsSystem.Data
                 .Property(a => a.CreationDate)
                 .IsRequired();
 
-            modelBuilder.Entity<Article>()
-                .Property(a => a.Author)
-                .IsRequired();
+            //modelBuilder.Entity<Article>()
+            //    .Property(a => a.Author)
+            //    .IsRequired();
 
-            modelBuilder.Entity<Comment>()
-                .Property(c => c.Article)
-                .IsRequired();
+            //modelBuilder.Entity<Comment>()
+            //    .Property(c => c.Article)
+            //    .IsRequired();
 
-            modelBuilder.Entity<Comment>()
-                .Property(c => c.User)
-                .IsRequired();
+           //modelBuilder.Entity<Comment>()
+           //    .Property(c => c.User)
+           //    .IsRequired();
 
-            modelBuilder.Entity<Image>()
-                .Property(i => i.Article)
-                .IsRequired();
+            //modelBuilder.Entity<Image>()
+            //    .Property(i => i.Article)
+            //    .IsRequired();
 
             modelBuilder.Entity<Image>()
                 .Property(i => i.Location)
                 .IsRequired();
 
-            modelBuilder.Entity<Vote>()
-                .Property(v => v.Article)
-                .IsRequired();
+            //modelBuilder.Entity<Vote>()
+            //    .Property(v => v.Article)
+            //    .IsRequired();
 
-            modelBuilder.Entity<Vote>()
-                .Property(v => v.User)
-                .IsRequired();
+            //modelBuilder.Entity<Vote>()
+            //    .Property(v => v.User)
+            //    .IsRequired();
 
             modelBuilder.Entity<Vote>()
                 .Property(v => v.Value)
