@@ -8,5 +8,11 @@ namespace NewsSystem.Models
 {
     public class Comment
     {
+        public int CommentID { get; set; }
+        public int ParrentID { get; set; }
+        public string Content { get; set; }
+
+        public virtual User user { get;  set; }
+        public virtual Article article { get; set; }
     }
 }
