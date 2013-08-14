@@ -14,6 +14,11 @@ namespace NewsSystem.Api.Controllers
     {
         private IRepository<Vote> voteRepository;
 
+        public VotesController(IRepository<Vote> voteRepository)
+        {
+            this.voteRepository = voteRepository;
+        }
+
         [HttpPost]
         public HttpResponseMessage PostVote(VoteModel model)
         {

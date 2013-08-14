@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NewsSystem.Models;
 
 namespace NewsSystem.Api.Models
 {
@@ -6,8 +7,8 @@ namespace NewsSystem.Api.Models
     {
         public int CommentId { get; set; }
         public string Content { get; set; }
-        public UserModel User { get; set; }
-        public ArticleModel Article { get; set; }
+        public User User { get; set; }
+        public Article Article { get; set; }
     }
 
     public class CommentDetailsModel : CommentModel
