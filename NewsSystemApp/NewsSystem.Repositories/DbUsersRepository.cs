@@ -15,6 +15,11 @@ namespace NewsSystem.Repositories
 
         public DbUsersRepository(DbContext dbContext)
         {
+            if (dbContext == null)
+            {
+                throw new ArgumentException("An instance of DbContext is required to use this repository.", "context");
+            }
+
             this.dbContext = dbContext;
             this.entitySet = this.dbContext.Set<User>();
         }
@@ -33,7 +38,12 @@ namespace NewsSystem.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.entitySet.Find(id);
+            if (entity != null)
+            {
+                this.entitySet.Remove(entity);
+                this.dbContext.SaveChanges();
+            }
         }
 
         public void Delete(User item)
@@ -49,6 +59,12 @@ namespace NewsSystem.Repositories
         public IQueryable<User> All()
         {
             return this.entitySet;
+        }
+
+
+        public IQueryable<User> Find(System.Linq.Expressions.Expression<Func<User, int, bool>> predicate)
+        {
+            return this.entitySet.Where(predicate);
         }
     }
 }

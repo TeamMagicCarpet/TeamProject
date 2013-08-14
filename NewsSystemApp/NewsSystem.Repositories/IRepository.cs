@@ -12,6 +12,6 @@ namespace NewsSystem.Repositories
         void Delete(T item);
         T Get(int id);
         IQueryable<T> All();
-        //IQueryable<T> Find(Expression<Func<T, int, bool>> predicate);
+        IQueryable<T> Find(Expression<Func<T, int, bool>> predicate);
     }
 }
