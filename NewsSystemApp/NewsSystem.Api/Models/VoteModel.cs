@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using NewsSystem.Models;
 
 namespace NewsSystem.Api.Models
 {
@@ -9,9 +10,9 @@ namespace NewsSystem.Api.Models
     {
         public int VoteId { get; set; }
 
-        public virtual UserModel User { get; set; }
+        public virtual User User { get; set; }
 
-        public virtual ArticleModel Article { get; set; }
+        public virtual Article Article { get; set; }
 
         public int Value { get; set; }
     }
