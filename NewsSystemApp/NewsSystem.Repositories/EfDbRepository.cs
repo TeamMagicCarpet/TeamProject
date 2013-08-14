@@ -37,19 +37,43 @@ namespace NewsSystem.Repositories
             return item;
         }
 
-        public T Update(int id, T item)
+        public void Update(int id, T item)
         {
-            throw new NotImplementedException();
+            DbEntityEntry entry = this.dbContext.Entry(item);
+            if (entry.State == EntityState.Detached)
+            {
+                this.entitySet.Attach(item);
+            }
+
+            entry.State = EntityState.Modified;
+
+            this.dbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.Get(id);
+
+            if (entity != null)
+            {
+                this.Delete(entity);
+            }
         }
 
-        public void Delete(T item)
+        public virtual void Delete(T entity)
         {
-            throw new NotImplementedException();
+            DbEntityEntry entry = this.dbContext.Entry(entity);
+            if (entry.State != EntityState.Deleted)
+            {
+                entry.State = EntityState.Deleted;
+            }
+            else
+            {
+                this.entitySet.Attach(entity);
+                this.entitySet.Remove(entity);
+            }
+
+            this.dbContext.SaveChanges();
         }
 
         public T Get(int id)

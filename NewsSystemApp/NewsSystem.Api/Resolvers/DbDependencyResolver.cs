@@ -17,6 +17,8 @@ namespace NewsSystem.Api.Resolvers
 
         private static IRepository<User> userRepository = new EfDbRepository<User>(dbContext);
         private static IRepository<Article> articleRepository = new EfDbRepository<Article>(dbContext);
+        private static IRepository<Comment> commentRepository = new EfDbRepository<Comment>(dbContext);
+        private static IRepository<Vote> voteRepository = new EfDbRepository<Vote>(dbContext);
 
         public IDependencyScope BeginScope()
         {
@@ -32,6 +34,14 @@ namespace NewsSystem.Api.Resolvers
             if (serviceType == typeof(ArticlesController))
             {
                 return new ArticlesController(articleRepository);
+            }
+            if (serviceType == typeof(CommentsController))
+            {
+                return new CommentsController(commentRepository);
+            }
+            if (serviceType == typeof(VotesController))
+            {
+                return new VotesController(voteRepository);
             }
             return null;
         }
