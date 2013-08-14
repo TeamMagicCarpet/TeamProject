@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using NewsSystem.Models;
 
 namespace NewsSystem.Api.Models
 {
@@ -25,6 +26,6 @@ namespace NewsSystem.Api.Models
     public class UserDetailsModel : UserModel
     {
 
-        public ICollection<NewsSystem.Models.Article> Articles { get; set; }
+        public ICollection<Article> Articles { get; set; }
     }
 }
