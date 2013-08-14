@@ -61,5 +61,11 @@ namespace NewsSystem.Repositories
         {
             return this.entitySet;
         }
+
+
+        public IQueryable<T> Find(System.Linq.Expressions.Expression<Func<T, int, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -16,5 +16,15 @@ namespace NewsSystem.Api.Models
         public string Email { get; set; }
 
         public int ArticleCount { get; set; }
+
+        public int UserId { get; set; }
+
+        public string Password { get; set; }
+    }
+
+    public class UserDetailsModel : UserModel
+    {
+
+        public ICollection<NewsSystem.Models.Article> Articles { get; set; }
     }
 }
