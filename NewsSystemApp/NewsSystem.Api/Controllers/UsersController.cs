@@ -161,6 +161,5 @@ namespace NewsSystem.Api.Controllers
             string sessionKey = keyChars.ToString();
             return sessionKey;
         }
-
     }
 }
