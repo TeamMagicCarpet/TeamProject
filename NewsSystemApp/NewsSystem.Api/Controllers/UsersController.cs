@@ -67,6 +67,8 @@ namespace NewsSystem.Api.Controllers
         [ActionName("register")]
         public HttpResponseMessage RegisterUser(UserModel model)
         { 
+            var sessionKey = GenerateSessionKey();
+
             var entityToAdd = new User()
             {
                 FirstName = model.FirstName,
@@ -74,9 +76,10 @@ namespace NewsSystem.Api.Controllers
                 UserName = model.UserName,
                 Password = model.Password,
                 Email = model.Email,
+                SessionKey = sessionKey
               
             };
-
+            
             var createEntity = this.userRepository.Add(entityToAdd);
 
             var createdModel = new UserModel()
@@ -86,7 +89,8 @@ namespace NewsSystem.Api.Controllers
                 FirstName = createEntity.FirstName,
                 LastName = createEntity.LastName,
                 Email = createEntity.Email,
-                SessionKey = GenerateSessionKey(createEntity.UserId) 
+                SessionKey = createEntity.SessionKey
+                 
             };
 
             var response = Request.CreateResponse<UserModel>(HttpStatusCode.Created, createdModel);
@@ -100,13 +104,9 @@ namespace NewsSystem.Api.Controllers
         [ActionName("login")]
         public HttpResponseMessage LoginUser(UserModel model)
         {
-            var entityToAdd = new User()
-            {
-                UserName = model.UserName,
-                Password = model.Password,
-            };
+            var sessionKey = GenerateSessionKey();
 
-            var findEntity = this.userRepository.All().Where(x=> x.Password == model.Password).FirstOrDefault();
+            var findEntity = this.userRepository.All().Where(x=> x.UserName == model.UserName && x.Password == model.Password).FirstOrDefault();
 
             if (findEntity == null)
             {
@@ -114,6 +114,9 @@ namespace NewsSystem.Api.Controllers
 
                 return errorResponse;
             }
+
+            findEntity.SessionKey = sessionKey;
+
             var createdModel = new UserModel()
             {
                 UserId = findEntity.UserId,
@@ -121,10 +124,9 @@ namespace NewsSystem.Api.Controllers
                 FirstName = findEntity.FirstName,
                 LastName = findEntity.LastName,
                 Email = findEntity.Email,
-                SessionKey = GenerateSessionKey(findEntity.UserId)
+                SessionKey = findEntity.SessionKey
             };
 
-            findEntity.SessionKey = createdModel.SessionKey;
             this.userRepository.Update(findEntity.UserId, findEntity);
 
             var response = Request.CreateResponse<UserModel>(HttpStatusCode.OK, createdModel);
@@ -149,10 +151,9 @@ namespace NewsSystem.Api.Controllers
             this.userRepository.Update(findEntity.UserId, findEntity);
         }
 
-        private static string GenerateSessionKey(int userId)
+        private static string GenerateSessionKey()
         {
             StringBuilder keyChars = new StringBuilder(50);
-            keyChars.Append(userId.ToString());
             while (keyChars.Length < SessionKeyLen)
             {
                 int randomCharNum;
