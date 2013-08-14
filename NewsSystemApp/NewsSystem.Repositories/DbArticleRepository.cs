@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewsSystem.Repositories
 {
-    public class Class1
+    class DbArticleRepository
     {
     }
 }

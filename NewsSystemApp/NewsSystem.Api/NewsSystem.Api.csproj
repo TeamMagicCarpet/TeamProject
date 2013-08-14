@@ -123,11 +123,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\DbDependencyResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -231,10 +234,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NewsSystem.Data\NewsSystem.Data.csproj">
+      <Project>{ac22fce4-34c7-4940-89be-77d11d6055ea}</Project>
+      <Name>NewsSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewsSystem.Models\NewsSystem.Models.csproj">
+      <Project>{00736842-5288-4f03-b6b3-e65662f4eab2}</Project>
+      <Name>NewsSystem.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewsSystem.Repositories\NewsSystem.Repositories.csproj">
+      <Project>{296519ce-3b46-495e-9de3-87fe9eb90040}</Project>
+      <Name>NewsSystem.Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
