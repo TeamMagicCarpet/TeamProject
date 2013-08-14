@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NewsSystem.Models
 {
     public class Vote
     {
-        public int VoteId { get; set; }
-
         private int voteValue;
+
+        public int VoteId { get; set; }
+        public virtual User User { get; set; }
+        public virtual Article Article { get; set; }
+
         public int Value
         {
             get
@@ -27,8 +26,5 @@ namespace NewsSystem.Models
                 this.voteValue = value;
             }
         }
-
-        public virtual User User { get; set; }
-        public virtual Article Article { get; set; }
     }
 }
