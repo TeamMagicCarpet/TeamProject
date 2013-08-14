@@ -10,13 +10,13 @@ namespace NewsSystem.Api.Models
 
         public string Title { get; set; }
 
-        public int VotesCount { get; set; }
-
         public DateTime CreationDate { get; set; }
 
         public int CommentsCount { get; set; }
 
         public string Content { get; set; }
+
+        public double Rating { get; set; }
     }
 
     public class ArticleDetailsModel : ArticleModel

@@ -14,6 +14,12 @@ namespace NewsSystem.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+               name: "UsersApi",
+               routeTemplate: "api/{controller}/{action}/{sessionKey}",
+               defaults: new { sessionKey = RouteParameter.Optional }
+           );
         }
     }
 }

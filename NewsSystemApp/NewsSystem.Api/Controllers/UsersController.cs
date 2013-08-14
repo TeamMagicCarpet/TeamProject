@@ -7,16 +7,23 @@ using System.Web.Http;
 using NewsSystem.Repositories;
 using NewsSystem.Models;
 using NewsSystem.Api.Models;
+using System.Text;
 
 namespace NewsSystem.Api.Controllers
 {
     public class UsersController : ApiController
     {
         private IRepository<User> userRepository;
+        private static Random rand;
+
+        private const string SessionKeyChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        private const int SessionKeyLen = 50;
+
 
         public UsersController(IRepository<User> userRepository)
         {
             this.userRepository = userRepository;
+            rand = new Random();
         }
 
         [HttpGet]
@@ -54,15 +61,18 @@ namespace NewsSystem.Api.Controllers
             return userModel;
         }
 
-        public HttpResponseMessage PostUser(UserModel model)
+        [HttpPost]
+        [ActionName("register")]
+        public HttpResponseMessage RegisterUser(UserModel model)
         { 
             var entityToAdd = new User()
             {
                 FirstName = model.FirstName,
-                LastName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.UserName,
-                Email = model.Email,
                 Password = model.Password,
+                Email = model.Email,
+              
             };
 
             var createEntity = this.userRepository.Add(entityToAdd);
@@ -73,7 +83,8 @@ namespace NewsSystem.Api.Controllers
                 UserName = createEntity.UserName,
                 FirstName = createEntity.FirstName,
                 LastName = createEntity.LastName,
-                Email = createEntity.Email
+                Email = createEntity.Email,
+                SessionKey = GenerateSessionKey(createEntity.UserId) 
             };
 
             var response = Request.CreateResponse<UserModel>(HttpStatusCode.Created, createdModel);
@@ -83,6 +94,72 @@ namespace NewsSystem.Api.Controllers
             return response;
         }
 
+        [HttpPost]
+        [ActionName("login")]
+        public HttpResponseMessage LoginUser(UserModel model)
+        {
+            var entityToAdd = new User()
+            {
+                UserName = model.UserName,
+                Password = model.Password,
+            };
 
+            var findEntity = this.userRepository.All().Where(x=> x.Password == model.Password).FirstOrDefault();
+
+            if (findEntity == null)
+            {
+                var errorResponse = Request.CreateResponse(HttpStatusCode.BadRequest, "User does not exist.");
+
+                return errorResponse;
+            }
+            var createdModel = new UserModel()
+            {
+                UserId = findEntity.UserId,
+                UserName = findEntity.UserName,
+                FirstName = findEntity.FirstName,
+                LastName = findEntity.LastName,
+                Email = findEntity.Email,
+                SessionKey = GenerateSessionKey(findEntity.UserId)
+            };
+
+            var response = Request.CreateResponse<UserModel>(HttpStatusCode.OK, createdModel);
+            var resourceLink = Url.Link("DefaultApi", new { UserId = createdModel.UserId });
+            response.Headers.Location = new Uri(resourceLink);
+
+            return response;
+        }
+
+        [HttpPost]
+        [ActionName("logout")]
+        public void LogoutUser(string sessionKey)
+        { 
+            var findEntity = this.userRepository.All().Where(x=> x.SessionKey ==sessionKey).FirstOrDefault();
+            if (findEntity == null)
+	        {
+                throw new ArgumentException("Session key has expired");
+	        }
+
+            findEntity.SessionKey = null;
+
+            this.userRepository.Update(findEntity.UserId, findEntity);
+        }
+
+        private static string GenerateSessionKey(int userId)
+        {
+            StringBuilder keyChars = new StringBuilder(50);
+            keyChars.Append(userId.ToString());
+            while (keyChars.Length < SessionKeyLen)
+            {
+                int randomCharNum;
+                lock (rand)
+                {
+                    randomCharNum = rand.Next(SessionKeyChars.Length);
+                }
+                char randomKeyChar = SessionKeyChars[randomCharNum];
+                keyChars.Append(randomKeyChar);
+            }
+            string sessionKey = keyChars.ToString();
+            return sessionKey;
+        }
     }
 }
