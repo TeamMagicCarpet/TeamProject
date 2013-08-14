@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace NewsSystem.Models
 {
+    /// <summary>
+    /// articles
+    /// </summary>
     public class Article
     {
         public int ArticleId { get; set; }
