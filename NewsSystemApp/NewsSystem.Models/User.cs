@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace NewsSystem.Models
 {
-    public class Class1
+    public class User
     {
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }
