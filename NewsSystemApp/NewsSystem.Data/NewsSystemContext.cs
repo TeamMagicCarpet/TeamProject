@@ -6,7 +6,11 @@ namespace NewsSystem.Data
     public class NewsSystemContext : DbContext
     {
         public NewsSystemContext()
-            : base("Server=05bbefd6-d391-4b3d-bb0b-a21a00e7307f.sqlserver.sequelizer.com;Database=db05bbefd6d3914b3dbb0ba21a00e7307f;User ID=hryjgtvdzooafwel;Password=DVni8wBJvUQ4iahYm26nRNNV5ussqrEoGhQsjbA4mvbAe586ASVu56RYgzmMdjte;")
+            : base(@"
+            Data Source=05bbefd6-d391-4b3d-bb0b-a21a00e7307f.sqlserver.sequelizer.com;
+            Initial Catalog=db05bbefd6d3914b3dbb0ba21a00e7307f;
+            User ID=hryjgtvdzooafwel;
+            Password=DVni8wBJvUQ4iahYm26nRNNV5ussqrEoGhQsjbA4mvbAe586ASVu56RYgzmMdjte;")
         {
         }
 
