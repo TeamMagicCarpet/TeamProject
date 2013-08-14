@@ -13,6 +13,6 @@ namespace NewsSystem.Api.Models
 
     public class CommentDetailsModel : CommentModel
     {
-        public virtual ICollection<CommentDetailsModel> Answers { get; set; }
+        public virtual ICollection<Comment> Answers { get; set; }
     }
 }
