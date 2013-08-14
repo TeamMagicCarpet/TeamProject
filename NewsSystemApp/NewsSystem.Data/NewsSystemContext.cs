@@ -55,32 +55,26 @@ namespace NewsSystem.Data
                 .IsRequired();
 
             modelBuilder.Entity<Article>()
-                .Property(a => a.Author)
-                .IsRequired();
+                .HasRequired(a => a.Author);
 
             modelBuilder.Entity<Comment>()
-                .Property(c => c.Article)
-                .IsRequired();
+                .HasRequired(c => c.Article);
 
             modelBuilder.Entity<Comment>()
-                .Property(c => c.User)
-                .IsRequired();
+                .HasRequired(c => c.User);
 
             modelBuilder.Entity<Image>()
-                .Property(i => i.Article)
-                .IsRequired();
+                .HasRequired(i => i.Article);
 
             modelBuilder.Entity<Image>()
                 .Property(i => i.Location)
                 .IsRequired();
 
             modelBuilder.Entity<Vote>()
-                .Property(v => v.Article)
-                .IsRequired();
+                .HasRequired(v => v.Article);
 
             modelBuilder.Entity<Vote>()
-                .Property(v => v.User)
-                .IsRequired();
+                .HasRequired(v => v.User);
 
             modelBuilder.Entity<Vote>()
                 .Property(v => v.Value)
