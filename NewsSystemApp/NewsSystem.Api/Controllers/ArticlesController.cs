@@ -79,7 +79,7 @@ namespace NewsSystem.Api.Controllers
             };
 
             var response = Request.CreateResponse<ArticleModel>(HttpStatusCode.Created, createdModel);
-            var resourceLink = Url.Link("DefaultApi", new { UserId = createdModel.ArticleId });
+            var resourceLink = Url.Link("DefaultApi", new { ArticleId = createdModel.ArticleId });
             response.Headers.Location = new Uri(resourceLink);
 
             return response;

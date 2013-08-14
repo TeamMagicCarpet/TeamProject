@@ -27,6 +27,7 @@ namespace NewsSystem.Api.Controllers
         }
 
         [HttpGet]
+        [ActionName("getall")]
         public IEnumerable<UserModel> GetAll()
         {
             var userEntities = this.userRepository.All();
@@ -45,9 +46,10 @@ namespace NewsSystem.Api.Controllers
         }
 
         [HttpGet]
-        public UserDetailsModel GetSingleUser(int id)
+        [ActionName("getuser")]
+        public UserDetailsModel GetUser(string sessionKey)
         {
-            var userEntity = this.userRepository.Get(id);
+            var userEntity = this.userRepository.Get(int.Parse(sessionKey));
             var userModel = new UserDetailsModel() 
             {
                 UserId = userEntity.UserId,
@@ -122,6 +124,9 @@ namespace NewsSystem.Api.Controllers
                 SessionKey = GenerateSessionKey(findEntity.UserId)
             };
 
+            findEntity.SessionKey = createdModel.SessionKey;
+            this.userRepository.Update(findEntity.UserId, findEntity);
+
             var response = Request.CreateResponse<UserModel>(HttpStatusCode.OK, createdModel);
             var resourceLink = Url.Link("DefaultApi", new { UserId = createdModel.UserId });
             response.Headers.Location = new Uri(resourceLink);
@@ -129,11 +134,11 @@ namespace NewsSystem.Api.Controllers
             return response;
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("logout")]
         public void LogoutUser(string sessionKey)
         { 
-            var findEntity = this.userRepository.All().Where(x=> x.SessionKey ==sessionKey).FirstOrDefault();
+            var findEntity = this.userRepository.All().Where(x=> x.SessionKey == sessionKey).FirstOrDefault();
             if (findEntity == null)
 	        {
                 throw new ArgumentException("Session key has expired");
