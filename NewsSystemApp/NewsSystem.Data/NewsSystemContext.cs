@@ -29,6 +29,18 @@ namespace NewsSystem.Data
                 .IsFixedLength()
                 .HasMaxLength(40);
 
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.SessionKey)
+                .IsOptional()
+                .IsFixedLength()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Article>()
+
             base.OnModelCreating(modelBuilder);
         }
     }
