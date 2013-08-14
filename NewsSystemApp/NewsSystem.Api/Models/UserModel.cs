@@ -28,4 +28,9 @@ namespace NewsSystem.Api.Models
 
         public ICollection<Article> Articles { get; set; }
     }
+
+    public class UserLoginModel
+    { 
+        
+    }
 }
