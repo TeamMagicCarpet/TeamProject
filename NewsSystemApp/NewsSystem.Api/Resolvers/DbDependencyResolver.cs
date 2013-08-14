@@ -7,14 +7,13 @@ using System.Data.Entity;
 using NewsSystem.Repositories;
 using NewsSystem.Models;
 using NewsSystem.Api.Controllers;
-using NewsSystem.Data;
 
 namespace NewsSystem.Api.Resolvers
 {
     public class DbDependencyResolver : IDependencyResolver
     {
-        private static DbContext usersContent = new NewsSystemContext();
-        private static IRepository<User> repository = new DbUsersRepository(usersContent);
+        //private static DbContext usersContent = new NewsSystemContext();
+        //private static IRepository<User> repository = new EfDbRepository(NewsSystemContext);
 
         public IDependencyScope BeginScope()
         {
@@ -25,7 +24,7 @@ namespace NewsSystem.Api.Resolvers
         {
             if (serviceType == typeof(UsersController))
             {
-                return new UsersController(repository);
+                //return new UsersController();
             }
             return null;
         }
