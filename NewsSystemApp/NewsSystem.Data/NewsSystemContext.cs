@@ -39,7 +39,7 @@ namespace NewsSystem.Data
                 .IsFixedLength()
                 .HasMaxLength(50);
 
-            modelBuilder.Entity<Article>()
+            modelBuilder.Entity<Article>();
 
             base.OnModelCreating(modelBuilder);
         }

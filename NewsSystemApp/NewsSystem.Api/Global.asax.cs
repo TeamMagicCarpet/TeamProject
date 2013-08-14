@@ -7,7 +7,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using NewsSystem.Api.Resolvers;
-
+using System.Data.Entity;
+using NewsSystem.Data;
+using NewsSystem.Data.Migrations;
 namespace NewsSystem.Api
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -17,11 +19,15 @@ namespace NewsSystem.Api
     {
         protected void ConfigureDependencyResolver(HttpConfiguration config)
         {
+            
             config.DependencyResolver = new DbDependencyResolver();
         }
 
         protected void Application_Start()
         {
+            var migration = new MigrateDatabaseToLatestVersion<NewsSystemContext, Configuration>();
+            Database.SetInitializer(migration);
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
