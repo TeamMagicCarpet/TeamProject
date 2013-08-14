@@ -32,7 +32,7 @@ namespace NewsSystem.Api.Controllers
                     Title = articleEntity.Title,
                     Content = articleEntity.Content,
                     CreationDate = articleEntity.CreationDate,
-                    VotesCount = articleEntity.Votes.Count(),
+                    Rating = articleEntity.Votes.Average(x => x.Value),
                     CommentsCount = articleEntity.Comments.Count()
                 };
             return articleModels.ToList();
@@ -74,7 +74,7 @@ namespace NewsSystem.Api.Controllers
                 Title = createEntity.Title,
                 Content = createEntity.Content,
                 CreationDate = createEntity.CreationDate,
-                VotesCount = createEntity.Votes.Count(),
+                Rating = createEntity.Votes.Average(x=>x.Value),
                 CommentsCount = createEntity.Comments.Count()
             };
 

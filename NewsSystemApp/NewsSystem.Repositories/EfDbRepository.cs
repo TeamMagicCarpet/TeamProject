@@ -65,7 +65,7 @@ namespace NewsSystem.Repositories
 
         public IQueryable<T> Find(System.Linq.Expressions.Expression<Func<T, int, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return this.entitySet.Where(predicate);
         }
     }
 }

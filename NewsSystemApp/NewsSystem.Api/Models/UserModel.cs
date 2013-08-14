@@ -21,6 +21,8 @@ namespace NewsSystem.Api.Models
         public int UserId { get; set; }
 
         public string Password { get; set; }
+
+        public string SessionKey { get; set; }
     }
 
     public class UserDetailsModel : UserModel
