@@ -23,6 +23,8 @@ namespace NewsSystem.Api.Models
         public string AuthorName { get; set; }
 
         public ICollection<string> Images { get; set; }
+
+        public string Image1 { get; set; }
     }
 
     public class ArticleDetailsModel : ArticleModel

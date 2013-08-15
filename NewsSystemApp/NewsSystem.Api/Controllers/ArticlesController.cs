@@ -84,8 +84,9 @@ namespace NewsSystem.Api.Controllers
                 Title = model.Title,
                 Content = model.Content,
                 Author = author,
-                Images = model.Images,
+                //Images = model.Images,
                 CreationDate = DateTime.Now,
+                Image1 = model.Image1
             };
 
             var createEntity = this.articleRepository.Add(entityToAdd);
@@ -102,7 +103,8 @@ namespace NewsSystem.Api.Controllers
                 CreationDate = createEntity.CreationDate,
                 Rating = createEntity.Votes.Any() ? createEntity.Votes.Average(x=>x.Value) : 0,
                 CommentsCount = createEntity.Comments.Count(),
-                Images = createEntity.Images
+                //Images = createEntity.Images
+                Image1 = createEntity.Image1
             };
 
             PubnubAPI pubnub = new PubnubAPI(

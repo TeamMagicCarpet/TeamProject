@@ -42,9 +42,7 @@
             <p class="article-meta">from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
             <div id="article-images">';
 
-        for (var image in article.Images) {
-            html += '<img src="' + article.Images[image] + '" width="100" />';
-        }
+            html += '<img src="' + article.Image1 + '" width="100" />';
 
         html += '</div>\
             <p class="article-content">' + article.Content + '</p>\

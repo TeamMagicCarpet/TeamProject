@@ -7,7 +7,7 @@ var controllers = (function () {
 
     var updateTimer = null;
 
-    var rootUrl = "http://localhost:62248/api/";
+    var rootUrl = "http://newssystem.apphb.com/api/";
     var Controller = Class.create({
         init: function () {
             this.persister = persisters.get(rootUrl);
@@ -132,7 +132,7 @@ var controllers = (function () {
                 var formData = new FormData($('#new-article')[0]);
 
                 $.ajax({
-                    url: 'http://localhost:62248/api/images/upload',
+                    url: 'http://newssystem.apphb.com/api/images/upload',
                     type: 'POST',
                     // Form data
                     data: formData,

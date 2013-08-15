@@ -17,6 +17,7 @@ namespace NewsSystem.Models
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public virtual User Author { get; set; }
+        public string Image1 { get; set; }
 
         public Article()
         {

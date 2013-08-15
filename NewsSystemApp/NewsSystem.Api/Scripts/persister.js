@@ -118,7 +118,7 @@ var persisters = (function () {
                 title: article.title,
                 content: article.content,
                 authorId: userId,
-                images: article.images
+                image1: article.images[0]
             };
 
             httpRequester.postJSON(url, articleData,
