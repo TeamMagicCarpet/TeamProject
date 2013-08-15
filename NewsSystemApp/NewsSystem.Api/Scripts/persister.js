@@ -45,6 +45,7 @@ var persisters = (function () {
             this.user = new UserPersister(this.rootUrl);
             this.article = new ArticlePersister(this.rootUrl);
             this.comment = new CommentPersister(this.rootUrl);
+            this.vote = new VotePersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
             var isLoggedIn = username != null && userId != null && sessionKey != null;
@@ -120,9 +121,9 @@ var persisters = (function () {
 
             httpRequester.postJSON(url, articleData,
                 function (data) {
-                    
+
                     success(data);
-                },error);
+                }, error);
         },
         getArticle: function (success, error) {
             var url = this.rootUrl + "getarticle/" + articleId;
@@ -161,6 +162,22 @@ var persisters = (function () {
             };
 
             httpRequester.postJSON(url, commentData, success, error);
+        }
+    });
+
+    var VotePersister = Class.create({
+        init: function (url) {
+            this.rootUrl = url + "votes/";
+        },
+        create: function (vote, success, error) {
+            var url = this.rootUrl + "create";
+            var voteData = {
+                value: vote.value,
+                userId: userId,
+                articleId: articleId
+            };
+
+            httpRequester.postJSON(url, voteData, success, error);
         }
     });
 

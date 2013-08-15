@@ -58,13 +58,17 @@ var controllers = (function () {
             var self = this;
 
             wrapper.parent().on("click", "#login-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 wrapper.parent().find("#login-popup").toggle();
                 $(this).toggleClass("open-popup-btn");
 
                 return false;
             });
 
-            wrapper.parent().on("click", "#reg-button", function () {
+            wrapper.parent().on("click", "#reg-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var regHtml = ui.registerUI();
                 wrapper.html(regHtml);
                 wrapper.parent().find("#login-popup").toggle();
@@ -73,6 +77,8 @@ var controllers = (function () {
             });
 
             wrapper.parent().on("click", "#submit-login-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var user = {
                     username: $("#tb-login-username").val(),
                     password: $("#tb-login-password").val()
@@ -84,14 +90,18 @@ var controllers = (function () {
                 return false;
             });
 
-            wrapper.parent().on("click", "#logout-button", function () {
+            wrapper.parent().on("click", "#logout-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 self.persister.user.logout(function () {
                     self.loadUI(contentSelector, loginSelector);
                 });
                 return false;
             });
 
-            wrapper.on("click", "#submit-reg-button", function () {
+            wrapper.on("click", "#submit-reg-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var pass = $(contentSelector).find("#tb-reg-password").val();
                 var repPass = $(contentSelector).find("#tb-reg-reppassword").val();
 
@@ -112,13 +122,18 @@ var controllers = (function () {
                 return false;
             });
 
-            wrapper.on("click", "#new-article-button", function () {
+            wrapper.on("click", "#new-article-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var newArticleHtml = ui.newArticleUI();
                 wrapper.html(newArticleHtml);
                 return false;
             });
 
-            wrapper.on("click", "#submit-article", function () {
+            wrapper.on("click", "#submit-article", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
                 //var formData = new FormData($('#file-select'));
                 //$.ajax({
                 //    url: 'http://localhost:62248/api/images/upload',
@@ -140,7 +155,9 @@ var controllers = (function () {
                 });
             });
 
-            wrapper.on("click", ".article-title", function () {
+            wrapper.on("click", ".article-title", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var title = $(this).text();
                 var articleId = $(this).data("articleid");
                 var articleData = {
@@ -153,16 +170,22 @@ var controllers = (function () {
             });
 
             wrapper.on("click", "#back-button", function () {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 self.persister.deselectArticle();
                 self.loadUI(contentSelector, loginSelector);
             });
 
-            wrapper.on("click", ".answer-comment", function () {
+            wrapper.on("click", ".answer-comment", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 wrapper.find("#comment-answer-box").hide();
                 $(this).siblings("#comment-answer-box").show();
             });
 
-            wrapper.on("click", "#submit-answer", function () {
+            wrapper.on("click", "#submit-answer", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var comment = {
                     content: $(contentSelector).find("#tb-comment-content").val(),
                     parentCommentId: $(this)
@@ -171,13 +194,17 @@ var controllers = (function () {
                         .data("answerid")
                 };
 
-                self.persister.comment.createAnswer(comment, function () {
+                self.persister.comment.createAnswer(comment, function (e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
                     wrapper.find("#comment-answer-box").hide();
                     self.loadUI(contentSelector, loginSelector);
                 });
             });
 
-            wrapper.on("click", "#submit-comment", function () {
+            wrapper.on("click", "#submit-comment", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
                 var comment = {
                     content: $(contentSelector).find("#tb-comment-content").val()
                 };
@@ -186,6 +213,19 @@ var controllers = (function () {
                     wrapper.find("#comment-answer-box").hide();
                     self.loadUI(contentSelector, loginSelector);
                 });
+            });
+
+            wrapper.on("click", "#vote-button", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var vote = {
+                    value: $("#rating").val()
+                }
+
+                self.persister.vote.create(vote, function () {
+                    self.loadUI(contentSelector, loginSelector);
+                });
+                return false;
             });
         },
         updateUI: function (contentSelector, loginSelector) {
