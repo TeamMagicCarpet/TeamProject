@@ -46,6 +46,7 @@ var persisters = (function () {
             this.article = new ArticlePersister(this.rootUrl);
             this.comment = new CommentPersister(this.rootUrl);
             this.vote = new VotePersister(this.rootUrl);
+            this.image = new ImagePersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
             var isLoggedIn = username != null && userId != null && sessionKey != null;
@@ -116,7 +117,8 @@ var persisters = (function () {
             var articleData = {
                 title: article.title,
                 content: article.content,
-                authorId: userId
+                authorId: userId,
+                images: article.images
             };
 
             httpRequester.postJSON(url, articleData,
@@ -178,6 +180,20 @@ var persisters = (function () {
             };
 
             httpRequester.postJSON(url, voteData, success, error);
+        }
+    });
+
+    var ImagePersister = Class.create({
+        init: function (url) {
+            this.rootUrl = url + "images/";
+        },
+        upload: function (formData, success, error) {
+            var url = this.rootUrl + "upload";
+            var imageData = {
+                formData: formData
+            };
+
+            httpRequester.postJSON(url, imageData, success, error);
         }
     });
 

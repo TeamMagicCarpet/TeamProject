@@ -156,7 +156,7 @@ ul#recent-news-list {
     list-style-image: url('../Images/news.png');
 }
 ul#recent-news-list li .article-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     border-bottom: 1px solid;
 }
@@ -165,28 +165,29 @@ h3.article-title {
     font-size: 35px;
 }
 
-ul#recent-news-list li:first-letter,
+#recent-news-list li:first-letter,
 #comments li:first-letter,
 h3.article-title:first-letter {
     font-size: 210%;
 }
-ul#recent-news-list li {
+#recent-news-list li,
+#comments li {
     border-bottom: 1px solid;
     padding-bottom: 5px;
 }
-#comments li {
+ul li {
     margin-left: 50px;
     list-style-image: url('../Images/answer.png');
 }
-#comments li li {
+ul li li {
     margin-left: 30px;
     list-style-image: url('../Images/answer2.png');
 }
-#comments li li li {
+ul li li li {
     margin-left: 30px;
     list-style-image: url('../Images/answer.png');
 }
-#comments li li li li {
+ul li li li li {
     margin-left: 30px;
     list-style-image: url('../Images/answer2.png');
 }

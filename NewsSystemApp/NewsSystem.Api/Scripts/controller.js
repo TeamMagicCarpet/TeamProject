@@ -128,25 +128,28 @@ var controllers = (function () {
 
             wrapper.on("click", "#submit-article", function (e) {
                 e.stopImmediatePropagation();
+                e.preventDefault();
+                var formData = new FormData($('#new-article')[0]);
 
-                //var formData = new FormData($('#file-select'));
-                //$.ajax({
-                //    url: 'http://localhost:62248/api/images/upload',
-                //    type: 'POST',
-                //    // Form data
-                //    data: formData,
-                //    //Options to tell JQuery not to process data or worry about content-type
-                //    contentType: false
-                //});
-
-
-                var article = {
-                    title: $(contentSelector).find("#tb-article-title").val(),
-                    content: $(contentSelector).find("#area-article-content").val()
-                };
-
-                self.persister.article.create(article, function () {
-                    self.loadUI(contentSelector, loginSelector);
+                $.ajax({
+                    url: 'http://localhost:62248/api/images/upload',
+                    type: 'POST',
+                    // Form data
+                    data: formData,
+                    //Options to tell JQuery not to process data or worry about content-type
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        var article = {
+                            title: $(contentSelector).find("#tb-article-title").val(),
+                            content: $(contentSelector).find("#area-article-content").val(),
+                            images: data
+                        };
+                        self.persister.article.create(article, function () {
+                            self.loadUI(contentSelector, loginSelector);
+                        });
+                    }
                 });
             });
 

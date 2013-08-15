@@ -40,6 +40,13 @@
             '<button id="back-button" class="btn">Back</button>\
             <h3 class="article-title">' + article.Title + '</h3>\
             <p class="article-meta">from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
+            <div id="article-images">';
+
+        for (var image in article.Images) {
+            html += '<img src="' + article.Images[image] + '" width="100" />';
+        }
+
+        html += '</div>\
             <p class="article-content">' + article.Content + '</p>\
             <form id="placeVote">\
                 <label>Rate article: </label>\
@@ -145,7 +152,9 @@
                         <textarea id="area-article-content"></textarea>\
                     </div>\
                     <label>Picture:</label>\
-                    <input id="file-select" name="file" type="file" />\
+                    <input class="file-select" name="file1" type="file" />\
+                    <input class="file-select" name="file2" type="file" />\
+                    <input class="file-select" name="file3" type="file" />\
                     <button id="submit-article" class="btn">Post Article</button>\
                 </form>\
             </div>';
