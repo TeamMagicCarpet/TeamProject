@@ -10,7 +10,7 @@ namespace NewsSystem.Models
         public string Content { get; set; }
         public virtual User User { get;  set; }
         public virtual Article Article { get; set; }
-        public bool isSubComment { get; set; }
+        public bool IsSubComment { get; set; }
         public Comment()
         {
             this.answers = new HashSet<Comment>();

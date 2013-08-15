@@ -37,7 +37,7 @@ namespace NewsSystem.Api.Controllers
                     Content = articleEntity.Content,
                     CreationDate = articleEntity.CreationDate,
                     Rating = articleEntity.Votes.Any()? articleEntity.Votes.Average(x => x.Value) : 0,
-                    CommentsCount = articleEntity.Comments.Count(),
+                    CommentsCount = articleEntity.Comments.Any()? articleEntity.Comments.Count() : 0,
                     AuthorId = articleEntity.Author.UserId,
                     AuthorName = articleEntity.Author.UserName
                 };
@@ -51,6 +51,11 @@ namespace NewsSystem.Api.Controllers
         {
             int articleId = int.Parse(token);
             var articleEntity = this.articleRepository.Get(articleId);
+
+            if (articleEntity == null)
+            {
+                throw new ArgumentException("ArticleId does not exist");
+            }
 
             var articleModel = new ArticleDetailsModel()
             {
