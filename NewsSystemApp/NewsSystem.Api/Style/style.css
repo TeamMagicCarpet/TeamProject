@@ -151,19 +151,19 @@ h1 {
     border-left: 1px solid #aaa;
 }
 
-ul {
+ul#recent-news-list {
     margin-left: 35px;
     list-style-image: url('../Images/news.png');
 }
-.article-title {
+ul#recent-news-list li .article-title {
     font-size: 20px;
     font-weight: bold;
     border-bottom: 1px solid;
 }
-li:first-letter {
+ul#recent-news-list li:first-letter {
     font-size: 210%;
 }
-li {
+ul#recent-news-list li {
     border-bottom: 1px solid;
     padding-bottom: 5px;
 }
