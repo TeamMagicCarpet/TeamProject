@@ -1,4 +1,4 @@
-﻿html, body, header, div, h1, form, label, input, button, p {
+﻿html, body, header, div, h1, form, label, input, button, textarea, p {
     margin: 0;
     padding: 0;
 }
@@ -28,8 +28,8 @@ html {
     #wrapper input[type="text"],
     #wrapper input[type="password"],
     #wrapper input[type="email"] {
-        width: 150px;
-        padding: 2px;
+        width: 146px;
+        padding: 2px 4px;
         border: 1px solid #999;
         border-radius: 5px;
     }
@@ -116,6 +116,33 @@ h1 {
         width: 115px;
         text-align: right;
     }
+
+#new-article-form form * {
+    margin: 2px 0;
+    vertical-align: top;
+}
+
+#new-article-form label {
+    display: inline-block;
+    width: 55px;
+    text-align: right;
+}
+
+#new-article-form input {
+    width: 606px !important;
+}
+
+#new-article-form textarea {
+    width: 606px;
+    height: 400px;
+    padding: 2px 4px;
+    resize: none;
+}
+
+#new-article-form #submit-article {
+    display: block;
+    margin: 10px auto;
+}
 
 #sidebar {
     float: left;

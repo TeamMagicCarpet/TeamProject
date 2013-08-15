@@ -4,34 +4,39 @@
 
 var persisters = (function () {
     var username = localStorage.getItem("username");
+    var userId = localStorage.getItem("userId");
     var sessionKey = localStorage.getItem("sessionKey");
     var articleTitle = localStorage.getItem("articleTitle");
     var articleId = localStorage.getItem("articleId");
 
     function saveUserData(userData) {
         localStorage.setItem("username", userData.UserName);
+        localStorage.setItem("userId", userData.UserId);
         localStorage.setItem("sessionKey", userData.SessionKey);
         username = userData.UserName;
+        userId = userData.UserId;
         sessionKey = userData.SessionKey;
     }
     function clearUserData() {
         localStorage.removeItem("username");
+        localStorage.removeItem("userId");
         localStorage.removeItem("sessionKey");
         username = null;
+        userId = null;
         sessionKey = null;
     }
 
     function saveArticleData(articleData) {
-        localStorage.setItem("articleTitle", articleData.articleTitle);
-        localStorage.setItem("articleId", articleData.articleId);
-        articleTitle = articleData.articleTitle;
-        articleId = articleData.articleId;
+        localStorage.setItem("articleTitle", articleData.Title);
+        localStorage.setItem("articleId", articleData.ArticleId);
+        articleTitle = articleData.Title;
+        articleId = articleData.ArticleId;
     }
     function clearArticleData() {
         localStorage.removeItem("articleTitle");
         localStorage.removeItem("articleId");
-        articleTitle = "";
-        articleId = "";
+        articleTitle = null;
+        articleId = null;
     }
 
     var MainPersister = Class.create({
@@ -40,12 +45,9 @@ var persisters = (function () {
             this.user = new UserPersister(this.rootUrl);
             this.article = new ArticlePersister(this.rootUrl);
             this.comment = new CommentPersister(this.rootUrl);
-            //        this.game = new GamePersister(this.rootUrl);
-            //        this.battle = new BattlePersister(this.rootUrl);
-            //        this.message = new MessagesPersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
-            var isLoggedIn = username != null && sessionKey != null;
+            var isLoggedIn = username != null && userId != null && sessionKey != null;
             return isLoggedIn;
         },
         isArticleSelected: function () {
@@ -54,6 +56,9 @@ var persisters = (function () {
         },
         username: function () {
             return username;
+        },
+        selectArticle: function (articleData) {
+            saveArticleData(articleData);
         }
     });
     var UserPersister = Class.create({
@@ -61,11 +66,9 @@ var persisters = (function () {
             this.rootUrl = rootUrl + "users/";
         },
         login: function (user, success, error) {
-            // TODO: Check login
             var url = this.rootUrl + "login";
             var userData = {
                 username: user.username,
-                // TODO: authCode?
                 password: CryptoJS.SHA1(user.password).toString()
             };
 
@@ -97,17 +100,37 @@ var persisters = (function () {
                 clearUserData();
                 success(data);
             }, error)
-        },
-        //    scores: function (success, error) {
-        //        var url = this.rootUrl + "scores/" + sessionKey;
-        //        httpRequester.getJSON(url, success, error);
-        //    }
+        }
     });
 
     var ArticlePersister = Class.create({
         init: function (url) {
-            this.rootUrl = url + "article/";
+            this.rootUrl = url + "articles/";
         },
+        create: function (article, success, error) {
+            var url = this.rootUrl + "create";
+            var articleData = {
+                title: article.title,
+                content: article.content,
+                authorId: userId
+            };
+
+            httpRequester.postJSON(url, articleData,
+                function (data) {
+                    
+                    success(data);
+                },error);
+        },
+        getArticle: function (success, error) {
+            var url = this.rootUrl + "getarticle/" + articleId;
+
+            httpRequester.getJSON(url, success, error);
+        },
+        getAll: function (success, error) {
+            var url = this.rootUrl + "getall";
+
+            httpRequester.getJSON(url, success, error);
+        }
         //TODO: Article Persister
         //create: function (game, success, error) {
         //    var gameData = {
