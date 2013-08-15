@@ -11,14 +11,13 @@ namespace NewsSystem.Api.Models
         public int ArticleId { get; set; }
         public bool IsSubComment { get; set; }
         public int ParrentCommentId { get; set; }
-        public string Author { get; set; }
-         public string Article { get; set; }
+        public string AuthorName { get; set; }
     }
 
     public class CommentDetailsModel : CommentModel
     {
-       
-       
+
+
         public virtual ICollection<Comment> Answers { get; set; }
     }
 }

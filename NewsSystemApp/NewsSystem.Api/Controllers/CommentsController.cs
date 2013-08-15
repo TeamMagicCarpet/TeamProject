@@ -29,14 +29,13 @@ namespace NewsSystem.Api.Controllers
         public IEnumerable<CommentDetailsModel> GetArticleComments(string token)
         {
             int articleId = int.Parse(token);
-            var commentEntities = this.commentRepository.All().Where(c => c.Article.ArticleId == articleId);
+            var commentEntities = this.commentRepository.All().Where(c => c.ArticleId == articleId);
             var commentModels =
                 from commentEntity in commentEntities
                 select new CommentDetailsModel()
                 {
                     Content = commentEntity.Content,
-                    Article = commentEntity.Article.Title,
-                    Author = commentEntity.User.UserName,
+                    AuthorName = this.userRepository.Get(commentEntity.AuthorId).UserName,
                     Answers = commentEntity.Answers
                 };
             return commentModels.ToList();
@@ -52,8 +51,7 @@ namespace NewsSystem.Api.Controllers
                 select new CommentDetailsModel()
                 {
                     Content = commentEntity.Content,
-                    Article = commentEntity.Article.Title,
-                    Author = commentEntity.User.UserName,
+                    AuthorName = this.userRepository.Get(commentEntity.AuthorId).UserName,
                     Answers = commentEntity.Answers
                 };
             return commentModels.ToList();
@@ -68,8 +66,7 @@ namespace NewsSystem.Api.Controllers
             var commentModels = new CommentDetailsModel()
                 {
                     Content = commentEntity.Content,
-                    Article = commentEntity.Article.Title,
-                    Author = commentEntity.User.UserName,
+                    AuthorName = this.userRepository.Get(commentEntity.AuthorId).UserName,
                     Answers = commentEntity.Answers
                 };
             return commentModels;
@@ -85,8 +82,8 @@ namespace NewsSystem.Api.Controllers
             var entityToAdd = new Comment()
             {
                 Content = comment.Content,
-                Article = article,
-                User = author,
+                ArticleId = comment.ArticleId,
+                UserName = author.UserName
             };
 
             var createEntity = this.commentRepository.Add(entityToAdd);
@@ -113,8 +110,7 @@ namespace NewsSystem.Api.Controllers
             {
                 CommentId = createEntity.CommentId,
                 Content = createEntity.Content,
-                Article = createEntity.Article.Title,
-                Author = createEntity.User.UserName,
+                AuthorName = this.userRepository.Get(createEntity.AuthorId).UserName,
                 Answers = createEntity.Answers
             };
 
