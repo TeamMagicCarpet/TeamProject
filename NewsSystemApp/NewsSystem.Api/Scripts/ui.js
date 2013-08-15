@@ -144,7 +144,7 @@
                         <label for="area-article-content">Content:</label>\
                         <textarea id="area-article-content"></textarea>\
                     </div>\
-                    <label>Using JQuery</label>\
+                    <label>Picture:</label>\
                     <input id="file-select" name="file" type="file" />\
                     <button id="submit-article" class="btn">Post Article</button>\
                 </form>\
