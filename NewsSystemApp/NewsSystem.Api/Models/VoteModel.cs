@@ -15,5 +15,9 @@ namespace NewsSystem.Api.Models
         public virtual Article Article { get; set; }
 
         public int Value { get; set; }
+
+        public int UserId { get; set; }
+
+        public int ArticleId { get; set; }
     }
 }

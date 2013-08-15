@@ -12,10 +12,14 @@ namespace NewsSystem.Api.Controllers
 {
     public class VotesController : ApiController
     {
-        private IRepository<Vote> voteRepository;
+        private readonly IRepository<Vote> voteRepository;
+        private readonly IRepository<Article> articleRepository;
+        private readonly IRepository<User> userRepository;
 
-        public VotesController(IRepository<Vote> voteRepository)
+        public VotesController(IRepository<Vote> voteRepository, IRepository<Article> articleRepository, IRepository<User> userRepository)
         {
+            this.articleRepository = articleRepository;
+            this.userRepository = userRepository;
             this.voteRepository = voteRepository;
         }
 
@@ -23,14 +27,19 @@ namespace NewsSystem.Api.Controllers
         [ActionName("create")]
         public HttpResponseMessage PostVote(VoteModel model)
         {
+            var user = this.userRepository.Get(model.UserId);
+            var article = this.articleRepository.Get(model.ArticleId);
+
             var entityToAdd = new Vote()
             {
-                User = model.User,
-                Article = model.Article,
+                User = user,
+                Article = article,
                 Value = model.Value,
             };
-
+            
             var createEntity = this.voteRepository.Add(entityToAdd);
+            article.Votes.Add(createEntity);
+            this.articleRepository.Update(article.ArticleId, article);
 
             var createdModel = new VoteModel()
             {

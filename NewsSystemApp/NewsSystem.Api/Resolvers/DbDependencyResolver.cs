@@ -39,7 +39,8 @@ namespace NewsSystem.Api.Resolvers
             }
             if (serviceType == typeof(VotesController))
             {
-                return new VotesController(new EfDbRepository<Vote>(new NewsSystemContext()));
+                NewsSystemContext dbContext = new NewsSystemContext();
+                return new VotesController(new EfDbRepository<Vote>(dbContext), new EfDbRepository<Article>(dbContext), new EfDbRepository<User>(dbContext));
             }
             return null;
         }

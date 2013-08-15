@@ -29,15 +29,18 @@ namespace NewsSystem.Api.Controllers
 
             var articleModels =
                 from articleEntity in articleEnteties
+                orderby articleEntity.CreationDate descending
                 select new ArticleModel()
                 {
                     ArticleId = articleEntity.ArticleId,
                     Title = articleEntity.Title,
                     Content = articleEntity.Content,
                     CreationDate = articleEntity.CreationDate,
-                    //Rating = articleEntity.Votes !=null? articleEntity.Votes.Average(x => x.Value) : 0,
-                    //CommentsCount = articleEntity.Comments !=null? articleEntity.Comments.Count() : 0
+                    Rating = articleEntity.Votes.Any()? articleEntity.Votes.Average(x => x.Value) : 0,
+                    CommentsCount = articleEntity.Comments.Count(),
+                    AuthorName = articleEntity.Author.UserName
                 };
+
             return articleModels.ToList();
         }
 
@@ -47,6 +50,7 @@ namespace NewsSystem.Api.Controllers
         {
             int articleId = int.Parse(token);
             var articleEntity = this.articleRepository.Get(articleId);
+
             var articleModel = new ArticleDetailsModel()
             {
                 ArticleId  = articleEntity.ArticleId,
@@ -56,6 +60,7 @@ namespace NewsSystem.Api.Controllers
                 Comments = articleEntity.Comments,
                 Votes = articleEntity.Votes,
                 Images = articleEntity.Images,
+                AuthorName = articleEntity.Author.UserName
             };
 
             return articleModel;
@@ -88,8 +93,8 @@ namespace NewsSystem.Api.Controllers
                 Title = createEntity.Title,
                 Content = createEntity.Content,
                 CreationDate = createEntity.CreationDate,
-                //Rating = createEntity.Votes!= null ? createEntity.Votes.Average(x=>x.Value) : 0,
-                //CommentsCount = createEntity.Comments != null? createEntity.Comments.Count() : 0
+                Rating = createEntity.Votes.Any() ? createEntity.Votes.Average(x=>x.Value) : 0,
+                CommentsCount = createEntity.Comments.Count()
             };
 
             PubnubAPI pubnub = new PubnubAPI(
