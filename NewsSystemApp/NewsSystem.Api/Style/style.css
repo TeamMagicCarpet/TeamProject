@@ -1,4 +1,4 @@
-﻿html, body, header, div, h1, form, label, input, button, textarea, p {
+﻿html, body, header, div, h1, form, label, input, button, textarea, p, ul, li {
     margin: 0;
     padding: 0;
 }
@@ -149,4 +149,8 @@ h1 {
     margin-left: -1px;
     padding: 15px;
     border-left: 1px solid #aaa;
+}
+
+ul {
+    margin-left: 15px;
 }

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <form id="placeVote">
+        <label>Rate article: </label>
+        <select id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <input type="button" id="vote-button" value="Submit Rating" />
+    </form>
+    <script>
+        wrapper.parent().on("click", "#vote-button", function (e) {
+            var vote = {
+                value: $("#rating").val()
+            }
+
+            self.persister.vote.create(vote, function () {
+                self.loadUI(contentSelector, loginSelector);
+            }/*, function (err) {
+                    wrapper.find("#error-messages").text(err.responseJSON.Message);
+                }*/);
+            return false;
+        });
+
+        var VotePersister = Class.create({
+            init: function (url) {
+                this.rootUrl = url + "votes/";
+            },
+            create: function (vote, success, error) {
+                var url = this.rootUrl + "create";
+                var voteData = {
+                    value: vote.value,
+                    userId: vote.userId,
+                    articleId: vote.articleId
+                };
+
+                httpRequester.postJSON(url, voteData,
+                    function (data) {
+
+                        success(data);
+                    }, error);
+            }
+        });
+    </script>
+</body>
+</html>
