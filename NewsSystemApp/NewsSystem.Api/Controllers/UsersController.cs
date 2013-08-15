@@ -47,9 +47,9 @@ namespace NewsSystem.Api.Controllers
 
         [HttpGet]
         [ActionName("getuser")]
-        public UserDetailsModel GetUser(string sessionKey)
+        public UserDetailsModel GetUser(string token)
         {
-            var userEntity = this.userRepository.Get(int.Parse(sessionKey));
+            var userEntity = this.userRepository.Get(int.Parse(token));
             var userModel = new UserDetailsModel() 
             {
                 UserId = userEntity.UserId,
@@ -138,9 +138,9 @@ namespace NewsSystem.Api.Controllers
 
         [HttpGet]
         [ActionName("logout")]
-        public void LogoutUser(string sessionKey)
-        { 
-            var findEntity = this.userRepository.All().Where(x=> x.SessionKey == sessionKey).FirstOrDefault();
+        public void LogoutUser(string token)
+        {
+            var findEntity = this.userRepository.All().Where(x => x.SessionKey == token).FirstOrDefault();
             if (findEntity == null)
 	        {
                 throw new ArgumentException("Session key has expired");

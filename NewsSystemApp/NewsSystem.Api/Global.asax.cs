@@ -19,7 +19,6 @@ namespace NewsSystem.Api
     {
         protected void ConfigureDependencyResolver(HttpConfiguration config)
         {
-            
             config.DependencyResolver = new DbDependencyResolver();
         }
 
@@ -27,7 +26,7 @@ namespace NewsSystem.Api
         {
             var migration = new MigrateDatabaseToLatestVersion<NewsSystemContext, Configuration>();
             Database.SetInitializer(migration);
-
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

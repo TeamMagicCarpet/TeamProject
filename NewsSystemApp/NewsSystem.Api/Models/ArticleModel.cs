@@ -17,6 +17,8 @@ namespace NewsSystem.Api.Models
         public string Content { get; set; }
 
         public double Rating { get; set; }
+
+        public int AuthorId { get; set; }
     }
 
     public class ArticleDetailsModel : ArticleModel
@@ -26,5 +28,7 @@ namespace NewsSystem.Api.Models
         public ICollection<Vote> Votes { get; set; }
 
         public ICollection<Image> Images { get; set; }
+
+        public string AuthorName { get; set; }
     }
 }

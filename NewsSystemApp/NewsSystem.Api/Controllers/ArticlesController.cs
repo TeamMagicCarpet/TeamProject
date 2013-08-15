@@ -13,10 +13,12 @@ namespace NewsSystem.Api.Controllers
     public class ArticlesController : ApiController
     {
         private IRepository<Article> articleRepository;
+        private IRepository<User> userRepository;
 
-        public ArticlesController(IRepository<Article> articleRepository)
+        public ArticlesController(IRepository<Article> articleRepository, IRepository<User> userRepository)
         {
             this.articleRepository = articleRepository;
+            this.userRepository = userRepository;
         }
 
         [HttpGet]
@@ -41,9 +43,10 @@ namespace NewsSystem.Api.Controllers
 
         [HttpGet]
         [ActionName("getarticle")]
-        public ArticleDetailsModel GetSingleArticle(int id)
+        public ArticleDetailsModel GetSingleArticle(string token)
         {
-            var articleEntity = this.articleRepository.Get(id);
+            int articleId = int.Parse(token);
+            var articleEntity = this.articleRepository.Get(articleId);
             var articleModel = new ArticleDetailsModel()
             {
                 ArticleId  = articleEntity.ArticleId,
@@ -62,14 +65,22 @@ namespace NewsSystem.Api.Controllers
         [ActionName("create")]
         public HttpResponseMessage PostArticles(ArticleModel model)
         {
+            User author = userRepository.Get(model.AuthorId);
+
             var entityToAdd = new Article()
             {
                 Title = model.Title,
                 Content = model.Content,
+                Author = author,
+                
                 CreationDate = DateTime.Now,
             };
 
             var createEntity = this.articleRepository.Add(entityToAdd);
+
+            author.Articles.Add(createEntity);
+
+            this.userRepository.Update(author.UserId, author);
 
             var createdModel = new ArticleModel()
             {
@@ -89,8 +100,8 @@ namespace NewsSystem.Api.Controllers
             );
 
             string channel = "newssytem-channel";
-
-            pubnub.Publish(channel, createdModel.Title + " " + createdModel.CreationDate);
+            string message = string.Format("{0} {1}", createdModel.Title, createdModel.CreationDate);
+            pubnub.Publish(channel, message);
 
             var response = Request.CreateResponse<ArticleModel>(HttpStatusCode.Created, createdModel);
             var resourceLink = Url.Link("DefaultApi", new { ArticleId = createdModel.ArticleId });

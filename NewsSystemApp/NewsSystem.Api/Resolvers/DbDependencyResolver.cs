@@ -26,12 +26,16 @@ namespace NewsSystem.Api.Resolvers
             }
             if (serviceType == typeof(ArticlesController))
             {
-                return new ArticlesController(new EfDbRepository<Article>(new NewsSystemContext()));
+                NewsSystemContext dbContext = new NewsSystemContext();
+                return new ArticlesController(new EfDbRepository<Article>(dbContext), new EfDbRepository<User>(dbContext));
             }
             if (serviceType == typeof(CommentsController))
             {
-                return new CommentsController(new EfDbRepository<Comment>(new NewsSystemContext()),
-                    new EfDbRepository<Article>(new NewsSystemContext()), new EfDbRepository<User>(new NewsSystemContext()));
+                NewsSystemContext dbContext = new NewsSystemContext();
+                return new CommentsController(
+                    new EfDbRepository<Comment>(dbContext),
+                    new EfDbRepository<Article>(dbContext), 
+                    new EfDbRepository<User>(dbContext));
             }
             if (serviceType == typeof(VotesController))
             {

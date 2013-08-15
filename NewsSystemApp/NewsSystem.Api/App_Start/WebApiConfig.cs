@@ -12,8 +12,8 @@ namespace NewsSystem.Api
             config.Routes.MapHttpRoute(
                 
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{sessionKey}",
-                defaults: new { sessionKey = RouteParameter.Optional  }
+                routeTemplate: "api/{controller}/{action}/{token}",
+                defaults: new { token = RouteParameter.Optional }
             );
 
         }

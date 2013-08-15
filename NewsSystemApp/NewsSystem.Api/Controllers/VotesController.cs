@@ -20,6 +20,7 @@ namespace NewsSystem.Api.Controllers
         }
 
         [HttpPost]
+        [ActionName("create")]
         public HttpResponseMessage PostVote(VoteModel model)
         {
             var entityToAdd = new Vote()
