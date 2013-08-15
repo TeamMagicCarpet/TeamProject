@@ -24,12 +24,12 @@ namespace NewsSystem.Api.Resolvers
             {
                 return new UsersController(new EfDbRepository<User>(new NewsSystemContext()));
             }
-            if (serviceType == typeof(ArticlesController))
+            else if (serviceType == typeof(ArticlesController))
             {
                 NewsSystemContext dbContext = new NewsSystemContext();
                 return new ArticlesController(new EfDbRepository<Article>(dbContext), new EfDbRepository<User>(dbContext));
             }
-            if (serviceType == typeof(CommentsController))
+            else if (serviceType == typeof(CommentsController))
             {
                 NewsSystemContext dbContext = new NewsSystemContext();
                 return new CommentsController(
@@ -37,10 +37,14 @@ namespace NewsSystem.Api.Resolvers
                     new EfDbRepository<Article>(dbContext), 
                     new EfDbRepository<User>(dbContext));
             }
-            if (serviceType == typeof(VotesController))
+            else if (serviceType == typeof(VotesController))
             {
                 NewsSystemContext dbContext = new NewsSystemContext();
                 return new VotesController(new EfDbRepository<Vote>(dbContext), new EfDbRepository<Article>(dbContext), new EfDbRepository<User>(dbContext));
+            }
+            else if (serviceType == typeof(ImagesController))
+            {
+                return new ImagesController(new EfDbRepository<Image>(new NewsSystemContext()));
             }
             return null;
         }
