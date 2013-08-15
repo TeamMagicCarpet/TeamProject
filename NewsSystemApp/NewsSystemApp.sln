@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSystem.Repositories", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSystem.Data", "NewsSystem.Data\NewsSystem.Data.csproj", "{AC22FCE4-34C7-4940-89BE-77D11D6055EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSystem.WebClient", "NewsSystem.WebClient\NewsSystem.WebClient.csproj", "{3E8176FB-74A5-4065-AB32-8B54268ACD6A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D65EA897-EE59-4E81-B0ED-9B1D2DAFFAFF}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -40,10 +38,6 @@ Global
 		{AC22FCE4-34C7-4940-89BE-77D11D6055EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC22FCE4-34C7-4940-89BE-77D11D6055EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC22FCE4-34C7-4940-89BE-77D11D6055EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E8176FB-74A5-4065-AB32-8B54268ACD6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E8176FB-74A5-4065-AB32-8B54268ACD6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E8176FB-74A5-4065-AB32-8B54268ACD6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E8176FB-74A5-4065-AB32-8B54268ACD6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

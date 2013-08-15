@@ -1,0 +1,125 @@
+﻿html, body, header, div, h1, form, label, input, button, p {
+    margin: 0;
+    padding: 0;
+}
+
+.clear {
+    zoom: 1;
+}
+
+    .clear:after {
+        clear: both;
+        display: block;
+        height: 0;
+        content: "";
+    }
+
+html {
+    background-color: #eee;
+}
+
+#wrapper {
+    width: 950px;
+    margin: 20px auto;
+    border: 1px solid #aaa;
+    border-radius: 15px;
+}
+
+    #wrapper input[type="text"],
+    #wrapper input[type="password"],
+    #wrapper input[type="email"] {
+        width: 150px;
+        padding: 2px;
+        border: 1px solid #999;
+        border-radius: 5px;
+    }
+
+.btn {
+    padding: 5px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #ddd;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; /* Firefox */
+}
+
+    .btn:hover {
+        background-color: #ccc;
+    }
+
+header {
+    padding: 10px 0;
+    border-bottom: 1px solid #aaa;
+}
+
+h1 {
+    text-align: center;
+}
+
+#login-reg {
+    position: relative;
+    float: right;
+    margin-right: 10px;
+}
+
+    #login-reg p {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+#login-popup {
+    position: absolute;
+    right: 0;
+    width: 252px;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    background-color: #fbfbfb;
+    line-height: 27px;
+    text-align: center;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; /* Firefox */
+}
+
+    #login-popup label {
+        display: inline-block;
+        width: 70px;
+    }
+
+#login-button.open-popup-btn {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #fbfbfb;
+}
+
+#content-main {
+    float: left;
+    width: 675px;
+    padding: 15px;
+    border-right: 1px solid #aaa;
+}
+
+#register-form {
+    text-align: center;
+}
+
+    #register-form form {
+        display: inline-block;
+        line-height: 27px;
+    }
+
+    #register-form label {
+        display: inline-block;
+        width: 115px;
+        text-align: right;
+    }
+
+#sidebar {
+    float: left;
+    margin-left: -1px;
+    padding: 15px;
+    border-left: 1px solid #aaa;
+}
