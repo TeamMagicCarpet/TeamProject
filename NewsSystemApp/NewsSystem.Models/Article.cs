@@ -8,7 +8,7 @@ namespace NewsSystem.Models
     /// </summary>
     public class Article
     {
-        private ICollection<Image> images;
+        private ICollection<string> images;
         private ICollection<Vote> votes;
         private ICollection<Comment> comments;
 
@@ -20,12 +20,12 @@ namespace NewsSystem.Models
 
         public Article()
         {
-            this.images = new HashSet<Image>();
+            this.images = new HashSet<string>();
             this.votes = new HashSet<Vote>();
             this.comments = new HashSet<Comment>();
         }
 
-        public virtual ICollection<Image> Images
+        public virtual ICollection<string> Images
         {
             get { return this.images; }
             set { this.images = value; }

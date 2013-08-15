@@ -12,8 +12,8 @@ namespace NewsSystem.Api.Controllers
 {
     public class ArticlesController : ApiController
     {
-        private IRepository<Article> articleRepository;
-        private IRepository<User> userRepository;
+        private readonly IRepository<Article> articleRepository;
+        private readonly IRepository<User> userRepository;
 
         public ArticlesController(IRepository<Article> articleRepository, IRepository<User> userRepository)
         {
@@ -101,7 +101,8 @@ namespace NewsSystem.Api.Controllers
                 Content = createEntity.Content,
                 CreationDate = createEntity.CreationDate,
                 Rating = createEntity.Votes.Any() ? createEntity.Votes.Average(x=>x.Value) : 0,
-                CommentsCount = createEntity.Comments.Count()
+                CommentsCount = createEntity.Comments.Count(),
+                Images = createEntity.Images
             };
 
             PubnubAPI pubnub = new PubnubAPI(

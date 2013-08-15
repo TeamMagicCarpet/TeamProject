@@ -151,11 +151,11 @@ h1 {
     border-left: 1px solid #aaa;
 }
 
-#recent-news-list {
+ul#recent-news-list {
     margin-left: 35px;
     list-style-image: url('../Images/news.png');
 }
-.article-title {
+ul#recent-news-list li .article-title {
     font-size: 22px;
     font-weight: bold;
     border-bottom: 1px solid;
@@ -170,23 +170,24 @@ h3.article-title {
 h3.article-title:first-letter {
     font-size: 210%;
 }
-#recent-news-list li,
+ul#recent-news-list li {
 #comments li {
     border-bottom: 1px solid;
     padding-bottom: 5px;
 }
-
-.article-meta {
-    color: #777;
-    font-size: 90%;
+ul li {
+    margin-left: 50px;
+    list-style-image: url('../Images/answer.png');
 }
-
-.article-content {
-    font-size: 110%;
-    padding: 10px;
-    background-color: #fff;
+ul li li {
+    margin-left: 30px;
+    list-style-image: url('../Images/answer2.png');
 }
-
-#comments ul {
-    margin-left: 25px;
+ul li li li {
+    margin-left: 30px;
+    list-style-image: url('../Images/answer.png');
+}
+ul li li li li {
+    margin-left: 30px;
+    list-style-image: url('../Images/answer2.png');
 }
