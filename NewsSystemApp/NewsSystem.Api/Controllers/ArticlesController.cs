@@ -20,6 +20,7 @@ namespace NewsSystem.Api.Controllers
         }
 
         [HttpGet]
+        [ActionName("getall")]
         public IEnumerable<ArticleModel> GetAll()
         {
             var articleEnteties = this.articleRepository.All();
@@ -32,13 +33,14 @@ namespace NewsSystem.Api.Controllers
                     Title = articleEntity.Title,
                     Content = articleEntity.Content,
                     CreationDate = articleEntity.CreationDate,
-                    Rating = articleEntity.Votes.Average(x => x.Value),
-                    CommentsCount = articleEntity.Comments.Count()
+                    //Rating = articleEntity.Votes !=null? articleEntity.Votes.Average(x => x.Value) : 0,
+                    //CommentsCount = articleEntity.Comments !=null? articleEntity.Comments.Count() : 0
                 };
             return articleModels.ToList();
         }
 
         [HttpGet]
+        [ActionName("getarticle")]
         public ArticleDetailsModel GetSingleArticle(int id)
         {
             var articleEntity = this.articleRepository.Get(id);
@@ -57,6 +59,7 @@ namespace NewsSystem.Api.Controllers
         }
 
         [HttpPost]
+        [ActionName("create")]
         public HttpResponseMessage PostArticles(ArticleModel model)
         {
             var entityToAdd = new Article()
@@ -74,9 +77,20 @@ namespace NewsSystem.Api.Controllers
                 Title = createEntity.Title,
                 Content = createEntity.Content,
                 CreationDate = createEntity.CreationDate,
-                Rating = createEntity.Votes.Average(x=>x.Value),
-                CommentsCount = createEntity.Comments.Count()
+                //Rating = createEntity.Votes!= null ? createEntity.Votes.Average(x=>x.Value) : 0,
+                //CommentsCount = createEntity.Comments != null? createEntity.Comments.Count() : 0
             };
+
+            PubnubAPI pubnub = new PubnubAPI(
+                "pub-c-471827c9-62e3-42ac-8a02-524042ee4ba2",               // PUBLISH_KEY
+                "sub-c-0cc9fc44-0531-11e3-a3d6-02ee2ddab7fe",               // SUBSCRIBE_KEY
+                "sec-c-MGYwMDBlYjgtZmIxNC00N2Q0LThlNzgtZGVmZGMwNGE2YmJk",   // SECRET_KEY
+                true                                                        // SSL_ON?
+            );
+
+            string channel = "newssytem-channel";
+
+            pubnub.Publish(channel, createdModel.Title + " " + createdModel.CreationDate);
 
             var response = Request.CreateResponse<ArticleModel>(HttpStatusCode.Created, createdModel);
             var resourceLink = Url.Link("DefaultApi", new { ArticleId = createdModel.ArticleId });
