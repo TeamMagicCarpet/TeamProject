@@ -31,20 +31,28 @@ var controllers = (function () {
         },
         loadContentUI: function (contentSelector, loginSelector) {
             var self = this;
+            $(contentSelector).empty();
 
-            var mainContentHtml = ui.mainUI();
-            $(contentSelector).html(mainContentHtml);
+            if (this.persister.isArticleSelected()) {
+                self.persister.article.getArticle(function (data) {
+                    var articleHtml = ui.articleUI(data);
+                    $(contentSelector).html(articleHtml);
+                });
+            }
+            else {
+                if (this.persister.isUserLoggedIn()) {
+                    $(contentSelector).html('<button id="new-article-button" class="btn" >New Article</button>');
+                }
+                self.persister.article.getAll(function (data) {
+                    var mainContentHtml = ui.mainUI(data);
+                    $(contentSelector).append(mainContentHtml);
+                });
+            }
 
             updateTimer = setInterval(function () {
                 self.updateUI(contentSelector, loginSelector);
             }, 60000);
         },
-        //    loadGame: function (selector, gameId) {
-        //        this.persister.game.field(gameId, function (gameField) {
-        //            var gameHtml = ui.gameField(gameField);
-        //            $(selector + " #game-holder").html(gameHtml);
-        //        });
-        //    },
         attachUIEventHandlers: function (contentSelector, loginSelector) {
             var wrapper = $(contentSelector);
             var self = this;
@@ -54,7 +62,7 @@ var controllers = (function () {
             wrapper.parent().on("click", "#login-button", function (e) {
                 wrapper.parent().find("#login-popup").toggle();
                 $(this).toggleClass("open-popup-btn");
-                
+
                 return false;
             });
 
@@ -92,7 +100,7 @@ var controllers = (function () {
             wrapper.on("click", "#submit-reg-button", function () {
                 var pass = $(contentSelector).find("#tb-reg-password").val();
                 var repPass = $(contentSelector).find("#tb-reg-reppassword").val();
-                
+
                 if (pass == repPass) {
                     var user = {
                         firstName: $(contentSelector).find("#tb-reg-firstname").val(),
@@ -110,6 +118,35 @@ var controllers = (function () {
                 }
 
                 return false;
+            });
+
+            wrapper.on("click", "#new-article-button", function () {
+                var newArticleHtml = ui.newArticleUI();
+                wrapper.html(newArticleHtml);
+                return false;
+            });
+
+            wrapper.on("click", "#submit-article", function () {
+                var article = {
+                    title: $(contentSelector).find("#tb-article-title").val(),
+                    content: $(contentSelector).find("#area-article-content").val()
+                };
+
+                self.persister.article.create(article, function () {
+                    self.loadUI(contentSelector, loginSelector);
+                });
+            });
+
+            wrapper.on("click", ".article-title", function () {
+                var title = $(this).text();
+                var articleId = $(this).data("articleid");
+                var articleData = {
+                    Title: title,
+                    ArticleId: articleId
+                };
+                self.persister.selectArticle(articleData);
+
+                self.loadUI(contentSelector, loginSelector);
             });
 
             //        wrapper.on("click", "#btn-show-login", function () {

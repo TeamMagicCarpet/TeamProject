@@ -18,60 +18,59 @@
     }
 
     // TODO: Make Main Content UI
-    function buildMainUI() {
-        var html = '<h2>Recent News</h2>';
-        //    '<div><span id="user-nickname">Hello, ' + nickname + '</span>\
-        //<button id="btn-logout">Logout</button></div>\
-        //<div id="create-game-holder">\
-        //    Create new game: \
-        //	Title: <input type="text" id="tb-create-title" />\
-        //	Password: <input type="text" id="tb-create-pass" />\
-        //	<button id="btn-create-game">Create</button>\
-        //</div>\
-        //<div id="view-scores">\
-        //    <button id="btn-view-scores">View Scores</button>\
-        //    <div id="scores"></div>\
-        //</div>\
-        //<div id="open-games-container">\
-        //	<h2>Open</h2>\
-        //	<div id="open-games"></div>\
-        //</div>\
-        //<div id="active-games-container">\
-        //	<h2>Active</h2>\
-        //	<div id="active-games"></div>\
-        //</div>\
-        //<div id="game-holder"></div>\
-        //<div id="messages-holder">\
-        //</div>';
+    function buildMainUI(articles) {
+        var html =
+            '<h2>Recent News</h2>\
+            <ul id="recent-news-list">';
+
+        for (var i = 0; i < 10 && i < articles.length; i++) {
+            html += '<li>\
+                <a class="article-title" data-articleId="' + articles[i].ArticleId + '">' + articles[i].Title + '</a>\
+                <p class="article-meta">from ' + articles[i].AuthorName + ' on ' + articles[i].CreationDate + '</p>\
+                <p class="article-content">' + articles[i].Content + '</p>\
+            </li>';
+        }
+        html += '</ul>'
+
         return html;
     }
 
     // TODO: Make Article Content UI
-    function buildArticleUI() {
-        var html = 'article content ui';
-        //    '<div><span id="user-nickname">Hello, ' + nickname + '</span>\
-        //<button id="btn-logout">Logout</button></div>\
-        //<div id="create-game-holder">\
-        //    Create new game: \
-        //	Title: <input type="text" id="tb-create-title" />\
-        //	Password: <input type="text" id="tb-create-pass" />\
-        //	<button id="btn-create-game">Create</button>\
-        //</div>\
-        //<div id="view-scores">\
-        //    <button id="btn-view-scores">View Scores</button>\
-        //    <div id="scores"></div>\
-        //</div>\
-        //<div id="open-games-container">\
-        //	<h2>Open</h2>\
-        //	<div id="open-games"></div>\
-        //</div>\
-        //<div id="active-games-container">\
-        //	<h2>Active</h2>\
-        //	<div id="active-games"></div>\
-        //</div>\
-        //<div id="game-holder"></div>\
-        //<div id="messages-holder">\
-        //</div>';
+    function buildArticleUI(article) {
+        var comments = buildCommentsUI(article.Comments);
+        var html =
+            '<h3>' + article.Title + '</h3>\
+            <p>from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
+            <p>' + article.Content + '</p>\
+            <div>' + comments + '</div>';
+
+        return html;
+    }
+
+    function buildCommentsUI(comments) {
+        var html = "<ul>";
+        for (var comment in comments) {
+            html += buildCommentList(comments[comment], html);
+        }
+        html += "</ul>";
+
+        return html;
+    }
+
+    function buildCommentList(comment, html) {
+        html += "<li>\
+                    <p>" + comment.User.UserName + "</p>\
+                    <p>" + comment.Content + "</p>";
+        if (comment.Answers.length > 0) {
+            html += "<ul>";
+            for (var answer in comment.Answers) {
+                html += buildCommentList(comment.Answers[answer], html);
+            }
+            html += "</ul>";
+        }
+
+        html += "</li>";
+
         return html;
     }
 
@@ -101,6 +100,22 @@
                 </form>\
             </div>';
 
+        return html;
+    }
+
+    function buildNewArticleUI() {
+        var html =
+            '<div id="new-article-form">\
+                <form>\
+                    <label for="tb-article-title">Title:</label>\
+                    <input type="text" id="tb-article-title" />\
+                    <div>\
+                        <label for="area-article-content">Content:</label>\
+                        <textarea id="area-article-content"></textarea>\
+                    </div>\
+                    <button id="submit-article" class="btn">Post Article</button>\
+                </form>\
+            </div>';
         return html;
     }
 
@@ -251,6 +266,7 @@
         articleUI: buildArticleUI,
         welcomeUI: buildWelcomeUI,
         registerUI: buildRegisterUI,
+        newArticleUI: buildNewArticleUI,
         //gameUI: buildGameUI,
         //openGamesList: buildOpenGamesList,
         loginForm: buildLoginForm,
