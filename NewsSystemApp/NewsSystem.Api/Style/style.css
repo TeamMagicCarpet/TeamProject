@@ -152,11 +152,11 @@ h1 {
 }
 
 ul {
-    margin-left: 15px;
+    margin-left: 35px;
     list-style-image: url('../Images/news.png');
 }
 .article-title {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
 }
 .article-title:first-letter {
