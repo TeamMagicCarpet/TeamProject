@@ -44,9 +44,9 @@ html {
     -moz-box-sizing: border-box; /* Firefox */
 }
 
-    .btn:hover {
-        background-color: #ccc;
-    }
+.btn:hover {
+    background-color: #ccc;
+}
 
 header {
     padding: 10px 0;
@@ -63,10 +63,10 @@ h1 {
     margin-right: 10px;
 }
 
-    #login-reg p {
-        display: inline-block;
-        margin-right: 10px;
-    }
+#login-reg p {
+    display: inline-block;
+    margin-right: 10px;
+}
 
 #login-popup {
     position: absolute;
@@ -83,10 +83,10 @@ h1 {
     -moz-box-sizing: border-box; /* Firefox */
 }
 
-    #login-popup label {
-        display: inline-block;
-        width: 70px;
-    }
+#login-popup label {
+    display: inline-block;
+    width: 70px;
+}
 
 #login-button.open-popup-btn {
     border-bottom: none;
@@ -106,16 +106,16 @@ h1 {
     text-align: center;
 }
 
-    #register-form form {
-        display: inline-block;
-        line-height: 27px;
-    }
+#register-form form {
+    display: inline-block;
+    line-height: 27px;
+}
 
-    #register-form label {
-        display: inline-block;
-        width: 115px;
-        text-align: right;
-    }
+#register-form label {
+    display: inline-block;
+    width: 115px;
+    text-align: right;
+}
 
 #new-article-form form * {
     margin: 2px 0;
@@ -153,4 +153,8 @@ h1 {
 
 ul {
     margin-left: 15px;
+}
+.article-title {
+    font-size: 14px;
+    font-weight: bold;
 }
