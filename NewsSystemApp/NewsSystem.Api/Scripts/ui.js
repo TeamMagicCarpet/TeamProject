@@ -82,7 +82,7 @@
 
     function buildCommentList(comment) {
         var html = '<li>\
-                    <p>' + comment.User.UserName + '</p>\
+                    <p>' + comment.UserName + '</p>\
                     <p>' + comment.Content + '</p>\
                     <button class="btn answer-comment" data-answerId="' + comment.CommentId + '">Answer</button>\
                     <div id="comment-answer-box" style="display: none">\

@@ -64,7 +64,6 @@ namespace NewsSystem.Api.Controllers
                 Content = articleEntity.Content,
                 CreationDate = articleEntity.CreationDate,
                 Comments = articleEntity.Comments,
-                Votes = articleEntity.Votes,
                 Rating = articleEntity.Votes.Any() ? articleEntity.Votes.Average(x => x.Value) : 0,
                 Images = articleEntity.Images,
                 AuthorId = articleEntity.Author.UserId,

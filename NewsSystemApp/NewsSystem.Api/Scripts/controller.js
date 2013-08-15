@@ -13,6 +13,8 @@ var controllers = (function () {
             this.persister = persisters.get(rootUrl);
         },
         loadUI: function (contentSelector, loginSelector) {
+            $(contentSelector).empty();
+            $(loginSelector).empty();
             if (this.persister.isUserLoggedIn()) {
                 var welcomeHtml = ui.welcomeUI(this.persister.username());
                 $(loginSelector).html(welcomeHtml);
@@ -58,6 +60,7 @@ var controllers = (function () {
             var self = this;
 
             wrapper.parent().on("click", "#login-button", function (e) {
+                e.stopImmediatePropagation();
                 wrapper.parent().find("#login-popup").toggle();
                 $(this).toggleClass("open-popup-btn");
 
@@ -65,6 +68,7 @@ var controllers = (function () {
             });
 
             wrapper.parent().on("click", "#reg-button", function (e) {
+                e.stopImmediatePropagation();
                 var regHtml = ui.registerUI();
                 wrapper.html(regHtml);
                 wrapper.parent().find("#login-popup").toggle();
@@ -73,6 +77,7 @@ var controllers = (function () {
             });
 
             wrapper.parent().on("click", "#submit-login-button", function (e) {
+                e.stopImmediatePropagation();
                 var user = {
                     username: $("#tb-login-username").val(),
                     password: $("#tb-login-password").val()
@@ -85,6 +90,7 @@ var controllers = (function () {
             });
 
             wrapper.parent().on("click", "#logout-button", function (e) {
+                e.stopImmediatePropagation();
                 self.persister.user.logout(function () {
                     self.loadUI(contentSelector, loginSelector);
                 });
@@ -92,6 +98,7 @@ var controllers = (function () {
             });
 
             wrapper.on("click", "#submit-reg-button", function (e) {
+                e.stopImmediatePropagation();
                 var pass = $(contentSelector).find("#tb-reg-password").val();
                 var repPass = $(contentSelector).find("#tb-reg-reppassword").val();
 
@@ -113,12 +120,14 @@ var controllers = (function () {
             });
 
             wrapper.on("click", "#new-article-button", function (e) {
+                e.stopImmediatePropagation();
                 var newArticleHtml = ui.newArticleUI();
                 wrapper.html(newArticleHtml);
                 return false;
             });
 
             wrapper.on("click", "#submit-article", function (e) {
+                e.stopImmediatePropagation();
 
                 //var formData = new FormData($('#file-select'));
                 //$.ajax({
@@ -142,6 +151,7 @@ var controllers = (function () {
             });
 
             wrapper.on("click", ".article-title", function (e) {
+                e.stopImmediatePropagation();
                 var title = $(this).text();
                 var articleId = $(this).data("articleid");
                 var articleData = {
@@ -153,22 +163,24 @@ var controllers = (function () {
                 self.loadUI(contentSelector, loginSelector);
             });
 
-            wrapper.on("click", "#back-button", function () {
+            wrapper.on("click", "#back-button", function (e) {
+                e.stopImmediatePropagation();
                 self.persister.deselectArticle();
                 self.loadUI(contentSelector, loginSelector);
             });
 
             wrapper.on("click", ".answer-comment", function (e) {
+                e.stopImmediatePropagation();
                 wrapper.find("#comment-answer-box").hide();
                 $(this).siblings("#comment-answer-box").show();
             });
 
             wrapper.on("click", "#submit-answer", function (e) {
                 var comment = {
-                    content: $(contentSelector).find("#tb-comment-content").val(),
+                    content: $(this).siblings("#tb-comment-content").first().val(),
                     parentCommentId: $(this)
                         .parents("#comment-answer-box")
-                        .siblings("button.btn answer-comment")
+                        .siblings("button.answer-comment")
                         .data("answerid")
                 };
 
@@ -179,6 +191,7 @@ var controllers = (function () {
             });
 
             wrapper.on("click", "#submit-comment", function (e) {
+                e.stopImmediatePropagation();
                 var comment = {
                     content: $(contentSelector).find("#tb-comment-content").val()
                 };
@@ -190,6 +203,7 @@ var controllers = (function () {
             });
 
             wrapper.on("click", "#vote-button", function (e) {
+                e.stopImmediatePropagation();
                 var vote = {
                     value: $("#rating").val()
                 }

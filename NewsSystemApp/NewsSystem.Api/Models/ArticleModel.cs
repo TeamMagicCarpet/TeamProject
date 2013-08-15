@@ -27,8 +27,6 @@ namespace NewsSystem.Api.Models
     {
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Vote> Votes { get; set; }
-
         public ICollection<Image> Images { get; set; }
 
     }

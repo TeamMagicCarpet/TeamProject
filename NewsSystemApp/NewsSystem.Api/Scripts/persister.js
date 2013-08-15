@@ -148,7 +148,7 @@ var persisters = (function () {
                 articleId: articleId,
                 authorId: userId,
                 isSubComment: true,
-                parentCommentId: comment.parentCommentId
+                ParrentCommentId: comment.parentCommentId.toString()
             };
 
             httpRequester.postJSON(url, commentData, success, error);
@@ -158,7 +158,7 @@ var persisters = (function () {
             var commentData = {
                 content: comment.content,
                 articleId: articleId,
-                authorId: userId,
+                authorId: userId
             };
 
             httpRequester.postJSON(url, commentData, success, error);

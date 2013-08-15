@@ -83,7 +83,8 @@ namespace NewsSystem.Api.Controllers
             {
                 Content = comment.Content,
                 ArticleId = comment.ArticleId,
-                UserName = author.UserName
+                UserName = author.UserName,
+                AuthorId = comment.AuthorId
             };
 
             var createEntity = this.commentRepository.Add(entityToAdd);
