@@ -209,6 +209,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\answer.png" />
+    <Content Include="Images\answer2.png" />
     <Content Include="Images\news.png" />
     <Content Include="Scripts\class.js" />
     <Content Include="Scripts\controller.js" />
