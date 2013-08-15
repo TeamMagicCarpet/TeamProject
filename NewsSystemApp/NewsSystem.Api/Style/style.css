@@ -152,13 +152,18 @@ h1 {
 }
 
 ul {
-    margin-left: 15px;
-    list-style-image: url('..\Images\news.png');
+    margin-left: 35px;
+    list-style-image: url('../Images/news.png');
 }
 .article-title {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
+    border-bottom: 1px solid;
 }
-.article-title:first-letter {
-    font-size: 200%;
+li:first-letter {
+    font-size: 210%;
+}
+li {
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
 }
