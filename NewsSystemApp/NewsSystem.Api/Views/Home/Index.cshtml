@@ -72,7 +72,27 @@
             <h1>Magic Carpet News</h1>
         </header>
         <div id="content-main"></div>
-        <div id="sidebar"></div>
+        <div id="sidebar">
+            <h2>Latest News</h2>
+            <textarea id="messagesArea" rows="10" cols="20"></textarea>
+        </div>
     </div>
+    <div 
+        pub-key="pub-c-471827c9-62e3-42ac-8a02-524042ee4ba2" 
+        sub-key="sub-c-0cc9fc44-0531-11e3-a3d6-02ee2ddab7fe" 
+        ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+    <script src=http://cdn.pubnub.com/pubnub-3.5.3.min.js></script>
+    <script>
+        (function () {
+            document.write("")
+            PUBNUB.subscribe({
+                channel: "newssytem-channel",
+                callback: function (message) {
+                    // Received a message --> print it in the page
+                    document.getElementById('messagesArea').innerHTML += message + '\n';
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

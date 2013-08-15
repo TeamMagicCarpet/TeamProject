@@ -31,6 +31,5 @@ namespace NewsSystem.Api.Models
 
         public ICollection<Image> Images { get; set; }
 
-        
     }
 }

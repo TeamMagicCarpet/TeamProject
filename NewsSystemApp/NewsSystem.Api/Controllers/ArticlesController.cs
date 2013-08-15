@@ -38,6 +38,7 @@ namespace NewsSystem.Api.Controllers
                     CreationDate = articleEntity.CreationDate,
                     Rating = articleEntity.Votes.Any()? articleEntity.Votes.Average(x => x.Value) : 0,
                     CommentsCount = articleEntity.Comments.Count(),
+                    AuthorId = articleEntity.Author.UserId,
                     AuthorName = articleEntity.Author.UserName
                 };
 
@@ -60,6 +61,7 @@ namespace NewsSystem.Api.Controllers
                 Comments = articleEntity.Comments,
                 Votes = articleEntity.Votes,
                 Images = articleEntity.Images,
+                AuthorId = articleEntity.Author.UserId,
                 AuthorName = articleEntity.Author.UserName
             };
 

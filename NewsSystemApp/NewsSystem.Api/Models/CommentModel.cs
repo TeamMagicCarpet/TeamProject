@@ -12,7 +12,7 @@ namespace NewsSystem.Api.Models
         public bool IsSubComment { get; set; }
         public int ParrentCommentId { get; set; }
         public string Author { get; set; }
-        public string Article { get; set; }
+         public string Article { get; set; }
     }
 
     public class CommentDetailsModel : CommentModel
