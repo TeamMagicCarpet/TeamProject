@@ -41,6 +41,22 @@
             <h3>' + article.Title + '</h3>\
             <p>from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
             <p>' + article.Content + '</p>\
+            <form id="placeVote">\
+                <label>Rate article: </label>\
+                <select id="rating">\
+                    <option value="1">1</option>\
+                    <option value="2">2</option>\
+                    <option value="3">3</option>\
+                    <option value="4">4</option>\
+                    <option value="5">5</option>\
+                    <option value="6">6</option>\
+                    <option value="7">7</option>\
+                    <option value="8">8</option>\
+                    <option value="9">9</option>\
+                    <option value="10">10</option>\
+                </select>\
+                <button id="vote-button" class="btn">Submit Rating</button>\
+            </form>\
             <button class="btn answer-comment">Comment</button>\
             <div id="comment-answer-box" style="display: none">\
                 <form>\
