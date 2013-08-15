@@ -38,9 +38,9 @@
         var comments = buildCommentsUI(article.Comments);
         var html =
             '<button id="back-button" class="btn">Back</button>\
-            <h3>' + article.Title + '</h3>\
-            <p>from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
-            <p>' + article.Content + '</p>\
+            <h3 class="article-title">' + article.Title + '</h3>\
+            <p class="article-meta">from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
+            <p class="article-content">' + article.Content + '</p>\
             <form id="placeVote">\
                 <label>Rate article: </label>\
                 <select id="rating">\
@@ -65,7 +65,7 @@
                     <button id="submit-comment" class="btn">Done</button>\
                 </form>\
             </div>\
-            <div>' + comments + '</div>';
+            <div id="comments">' + comments + '</div>';
 
         return html;
     }

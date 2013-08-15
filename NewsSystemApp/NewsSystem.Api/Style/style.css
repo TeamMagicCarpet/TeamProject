@@ -1,4 +1,4 @@
-﻿html, body, header, div, h1, form, label, input, button, textarea, p, ul, li {
+﻿html, body, header, div, h1, h2, h3, form, label, input, button, textarea, p, ul, li {
     margin: 0;
     padding: 0;
 }
@@ -151,19 +151,42 @@ h1 {
     border-left: 1px solid #aaa;
 }
 
-ul {
+#recent-news-list {
     margin-left: 35px;
     list-style-image: url('../Images/news.png');
 }
 .article-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     border-bottom: 1px solid;
 }
-li:first-letter {
+
+h3.article-title {
+    font-size: 35px;
+}
+
+#recent-news-list li:first-letter,
+#comments li:first-letter,
+h3.article-title:first-letter {
     font-size: 210%;
 }
-li {
+#recent-news-list li,
+#comments li {
     border-bottom: 1px solid;
     padding-bottom: 5px;
+}
+
+.article-meta {
+    color: #777;
+    font-size: 90%;
+}
+
+.article-content {
+    font-size: 110%;
+    padding: 10px;
+    background-color: #fff;
+}
+
+#comments ul {
+    margin-left: 25px;
 }
