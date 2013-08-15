@@ -21,13 +21,13 @@ namespace NewsSystem.Api.Models
         public int AuthorId { get; set; }
 
         public string AuthorName { get; set; }
+
+        public ICollection<string> Images { get; set; }
     }
 
     public class ArticleDetailsModel : ArticleModel
     {
         public ICollection<Comment> Comments { get; set; }
-
-        public ICollection<Image> Images { get; set; }
 
     }
 }

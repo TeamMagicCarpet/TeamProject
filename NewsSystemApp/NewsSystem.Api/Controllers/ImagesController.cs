@@ -51,13 +51,16 @@ namespace NewsSystem.Api.Controllers
 
             if (httpRequest.Files.Count > 0)
             {
+                List<string> imgUrls = new List<string>();
+
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
                     string shareUrl = UploadInDropbox(postedFile.FileName, postedFile.InputStream, postedFile.ContentLength);
+                    imgUrls.Add(shareUrl);
                 }
 
-                result = Request.CreateResponse(HttpStatusCode.Created);
+                result = Request.CreateResponse(HttpStatusCode.Created, imgUrls);
             }
             else
             {
