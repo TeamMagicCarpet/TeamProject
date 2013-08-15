@@ -39,9 +39,18 @@
     function buildArticleUI(article) {
         var comments = buildCommentsUI(article.Comments);
         var html =
-            '<h3>' + article.Title + '</h3>\
+            '<button id="back-button" class="btn">Back</button>\
+            <h3>' + article.Title + '</h3>\
             <p>from ' + article.AuthorName + ' on ' + article.CreationDate + ', rating: ' + article.Rating + '</p>\
             <p>' + article.Content + '</p>\
+            <button class="btn answer-comment">Comment</button>\
+            <div id="comment-answer-box" style="display: none">\
+                <form>\
+                    <label for="tb-comment-content">Content:</label>\
+                    <input type="text" id="tb-comment-content" />\
+                    <button id="submit-comment" class="btn">Done</button>\
+                </form>\
+            </div>\
             <div>' + comments + '</div>';
 
         return html;
@@ -50,21 +59,29 @@
     function buildCommentsUI(comments) {
         var html = "<ul>";
         for (var comment in comments) {
-            html += buildCommentList(comments[comment], html);
+            html += buildCommentList(comments[comment]);
         }
         html += "</ul>";
 
         return html;
     }
 
-    function buildCommentList(comment, html) {
-        html += "<li>\
-                    <p>" + comment.User.UserName + "</p>\
-                    <p>" + comment.Content + "</p>";
+    function buildCommentList(comment) {
+        var html = '<li>\
+                    <p>' + comment.User.UserName + '</p>\
+                    <p>' + comment.Content + '</p>\
+                    <button class="btn answer-comment" data-answerId="' + comment.CommentId + '">Answer</button>\
+                    <div id="comment-answer-box" style="display: none">\
+                        <form>\
+                            <label for="tb-comment-content">Content:</label>\
+                            <input type="text" id="tb-comment-content" />\
+                            <button id="submit-answer" class="btn">Done</button>\
+                        </form>\
+                    </div>';
         if (comment.Answers.length > 0) {
             html += "<ul>";
             for (var answer in comment.Answers) {
-                html += buildCommentList(comment.Answers[answer], html);
+                html += buildCommentList(comment.Answers[answer]);
             }
             html += "</ul>";
         }
@@ -106,13 +123,15 @@
     function buildNewArticleUI() {
         var html =
             '<div id="new-article-form">\
-                <form>\
+                <form id="new-article" enctype="multipart/form-data">\
                     <label for="tb-article-title">Title:</label>\
                     <input type="text" id="tb-article-title" />\
                     <div>\
                         <label for="area-article-content">Content:</label>\
                         <textarea id="area-article-content"></textarea>\
                     </div>\
+                    <label>Using JQuery</label>\
+                    <input id="file-select" name="file" type="file" />\
                     <button id="submit-article" class="btn">Post Article</button>\
                 </form>\
             </div>';

@@ -127,6 +127,17 @@ var controllers = (function () {
             });
 
             wrapper.on("click", "#submit-article", function () {
+                //var formData = new FormData($('#file-select'));
+                //$.ajax({
+                //    url: 'http://localhost:62248/api/images/upload',
+                //    type: 'POST',
+                //    // Form data
+                //    data: formData,
+                //    //Options to tell JQuery not to process data or worry about content-type
+                //    contentType: false
+                //});
+
+
                 var article = {
                     title: $(contentSelector).find("#tb-article-title").val(),
                     content: $(contentSelector).find("#area-article-content").val()
@@ -147,6 +158,42 @@ var controllers = (function () {
                 self.persister.selectArticle(articleData);
 
                 self.loadUI(contentSelector, loginSelector);
+            });
+
+            wrapper.on("click", "#back-button", function () {
+                self.persister.deselectArticle();
+                self.loadUI(contentSelector, loginSelector);
+            });
+
+            wrapper.on("click", ".answer-comment", function () {
+                wrapper.find("#comment-answer-box").hide();
+                $(this).siblings("#comment-answer-box").show();
+            });
+
+            wrapper.on("click", "#submit-answer", function () {
+                var comment = {
+                    content: $(contentSelector).find("#tb-comment-content").val(),
+                    parentCommentId: $(this)
+                        .parents("#comment-answer-box")
+                        .siblings("button.btn answer-comment")
+                        .data("answerid")
+                };
+
+                self.persister.comment.createAnswer(comment, function () {
+                    wrapper.find("#comment-answer-box").hide();
+                    self.loadUI(contentSelector, loginSelector);
+                });
+            });
+
+            wrapper.on("click", "#submit-comment", function () {
+                var comment = {
+                    content: $(contentSelector).find("#tb-comment-content").val()
+                };
+
+                self.persister.comment.createComment(comment, function () {
+                    wrapper.find("#comment-answer-box").hide();
+                    self.loadUI(contentSelector, loginSelector);
+                });
             });
 
             //        wrapper.on("click", "#btn-show-login", function () {

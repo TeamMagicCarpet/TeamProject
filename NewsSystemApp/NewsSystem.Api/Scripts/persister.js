@@ -59,6 +59,9 @@ var persisters = (function () {
         },
         selectArticle: function (articleData) {
             saveArticleData(articleData);
+        },
+        deselectArticle: function () {
+            clearArticleData();
         }
     });
     var UserPersister = Class.create({
@@ -131,85 +134,36 @@ var persisters = (function () {
 
             httpRequester.getJSON(url, success, error);
         }
-        //TODO: Article Persister
-        //create: function (game, success, error) {
-        //    var gameData = {
-        //        title: game.title,
-        //    };
-        //    if (game.password) {
-        //        gameData.password = CryptoJS.SHA1(game.password).toString();
-        //    }
-        //    var url = this.rootUrl + "create/" + sessionKey;
-        //    httpRequester.postJSON(url, gameData, success, error);
-        //},
-        //join: function (game, success, error) {
-        //    var gameData = {
-        //        id: game.id,
-        //    };
-        //    if (game.password) {
-        //        gameData.password = CryptoJS.SHA1(game.password).toString();
-        //    }
-        //    var url = this.rootUrl + "join/" + sessionKey;
-        //    httpRequester.postJSON(url, gameData, success, error);
-        //},
-        //start: function (gameId, success, error) {
-        //    var url = this.rootUrl + gameId + "/start/" + sessionKey;
-        //    httpRequester.getJSON(url, success, error)
-        //},
-        //myActive: function (success, error) {
-        //    var url = this.rootUrl + "my-active/" + sessionKey;
-        //    httpRequester.getJSON(url, success, error);
-        //},
-        //open: function (success, error) {
-        //    var url = this.rootUrl + "open/" + sessionKey;
-        //    httpRequester.getJSON(url, success, error);
-        //},
-        //field: function (gameId, success, error) {
-        //    var url = this.rootUrl + gameId + "/field/" + sessionKey;
-        //    httpRequester.getJSON(url, success, error);
-        //}
     });
 
     var CommentPersister = Class.create({
         init: function (url) {
-            this.rootUrl = url + "comment/";
+            this.rootUrl = url + "comments/";
         },
-        // TODO: CommentPersister
-        //move: function (data, success, error) {
-        //    var gameData = {
-        //        unitId: data.unitId,
-        //        position: data.position
-        //    };
-        //    var url = this.rootUrl + data.gameId + "/move/" + sessionKey;
-        //    httpRequester.postJSON(url, gameData, success, error);
-        //},
-        //attack: function (data, success, error) {
-        //    var gameData = {
-        //        unitId: data.unitId,
-        //        position: data.position
-        //    };
-        //    var url = this.rootUrl + data.gameId + "/attack/" + sessionKey;
-        //    httpRequester.postJSON(url, gameData, success, error);
-        //},
-        //defend: function (data, success, error) {
-        //    var gameData = data.unitId;
-        //    var url = this.rootUrl + data.gameId + "/defend/" + sessionKey;
-        //    httpRequester.postJSON(url, gameData, success, error);
-        //}
+        createAnswer: function (comment, success, error) {
+            var url = this.rootUrl + "create";
+            var commentData = {
+                content: comment.content,
+                articleId: articleId,
+                authorId: userId,
+                isSubComment: true,
+                parentCommentId: comment.parentCommentId
+            };
+
+            httpRequester.postJSON(url, commentData, success, error);
+        },
+        createComment: function (comment, success, error) {
+            var url = this.rootUrl + "create";
+            var commentData = {
+                content: comment.content,
+                articleId: articleId,
+                authorId: userId,
+            };
+
+            httpRequester.postJSON(url, commentData, success, error);
+        }
     });
-    //var MessagesPersister = Class.create({
-    //    init: function (url) {
-    //        this.rootUrl = url + "messages/";
-    //    },
-    //    unread: function (success, error) {
-    //        var url = this.rootUrl + "unread/" + sessionKey;
-    //        httpRequester.getJSON(url, success, error);
-    //    },
-    //    all: function (success, error) {
-    //        var url = this.rootUrl + "all/" + sessionKey;
-    //        httpRequester.getJSON(url, success, error);
-    //    }
-    //});
+
     return {
         get: function (url) {
             return new MainPersister(url);
