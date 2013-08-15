@@ -46,7 +46,7 @@ namespace NewsSystem.Api.Controllers
         [ActionName("getall")]
         public IEnumerable<CommentDetailsModel> GetAllComments()
         {
-            var commentEntities = this.commentRepository.All();
+            var commentEntities = this.commentRepository.All().Where(c=>c.isSubComment == false);
             var commentModels =
                 from commentEntity in commentEntities
                 select new CommentDetailsModel()
@@ -64,7 +64,7 @@ namespace NewsSystem.Api.Controllers
         public CommentDetailsModel GetComment(string token)
         {
             int commentId = int.Parse(token);
-            var commentEntity = this.commentRepository.All().Where(c => c.CommentId == commentId).FirstOrDefault();
+            var commentEntity = this.commentRepository.All().Where(c => c.CommentId == commentId && c.isSubComment == false).FirstOrDefault();
             var commentModels = new CommentDetailsModel()
                 {
                     Content = commentEntity.Content,
@@ -91,17 +91,20 @@ namespace NewsSystem.Api.Controllers
 
             var createEntity = this.commentRepository.Add(entityToAdd);
 
-
-            Comment parrentComment;
             if (comment.IsSubComment)
             {
-                parrentComment = commentRepository.Get(comment.ParrentCommentId);
+                createEntity.isSubComment = true;
+                Comment parrentComment = commentRepository.Get(comment.ParrentCommentId);
                 parrentComment.Answers.Add(createEntity);
                 this.commentRepository.Update(parrentComment.CommentId, parrentComment);
             }
-            
-            article.Comments.Add(createEntity);
-            this.articleRepository.Update(article.ArticleId, article);
+
+            if (!createEntity.isSubComment)
+            {
+                article.Comments.Add(createEntity);
+                this.articleRepository.Update(article.ArticleId, article);
+            }
+           
 
             author.Comments.Add(createEntity);
             this.userRepository.Update(author.UserId, author);

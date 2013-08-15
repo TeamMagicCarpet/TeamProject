@@ -18,10 +18,20 @@
             <h1>Magic Carpet News</h1>
         </header>
         <div id="content-main"></div>
+<<<<<<< HEAD
+        <div id="sidebar"></div>
+=======
         <div id="sidebar">
              <h2>Latest News</h2>
             <textarea id="messagesArea" rows="10" cols="20"></textarea>
         </div>
+
+        
+        @*<h3>title</h3>
+        <p>from author on date rating: 232</p>
+        <p>content</p>
+        <div>comments</div>*@
+>>>>>>> 6640bdbb95dcb27934e1b9c62c803de7131076f8
     </div>
 
      <div 

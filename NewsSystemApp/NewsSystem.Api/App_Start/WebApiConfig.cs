@@ -15,7 +15,6 @@ namespace NewsSystem.Api
                 routeTemplate: "api/{controller}/{action}/{token}",
                 defaults: new { token = RouteParameter.Optional }
             );
-
         }
     }
 }
