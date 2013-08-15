@@ -91,18 +91,20 @@ namespace NewsSystem.Api.Controllers
 
             var createEntity = this.commentRepository.Add(entityToAdd);
 
-
-            Comment parrentComment;
             if (comment.IsSubComment)
             {
                 createEntity.isSubComment = true;
-                parrentComment = commentRepository.Get(comment.ParrentCommentId);
+                Comment parrentComment = commentRepository.Get(comment.ParrentCommentId);
                 parrentComment.Answers.Add(createEntity);
                 this.commentRepository.Update(parrentComment.CommentId, parrentComment);
             }
-            
-            article.Comments.Add(createEntity);
-            this.articleRepository.Update(article.ArticleId, article);
+
+            if (!createEntity.isSubComment)
+            {
+                article.Comments.Add(createEntity);
+                this.articleRepository.Update(article.ArticleId, article);
+            }
+           
 
             author.Comments.Add(createEntity);
             this.userRepository.Update(author.UserId, author);
