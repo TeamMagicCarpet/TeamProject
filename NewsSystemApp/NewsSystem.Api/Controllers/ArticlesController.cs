@@ -65,7 +65,7 @@ namespace NewsSystem.Api.Controllers
                 CreationDate = articleEntity.CreationDate,
                 Comments = articleEntity.Comments.Any() ? articleEntity.Comments.Where(x => x.IsSubComment == false).ToList() : articleEntity.Comments,
                 Rating = articleEntity.Votes.Any() ? articleEntity.Votes.Average(x => x.Value) : 0,
-                Images = articleEntity.Images,
+                Image1 = articleEntity.Image1,
                 AuthorId = articleEntity.Author.UserId,
                 AuthorName = articleEntity.Author.UserName
             };

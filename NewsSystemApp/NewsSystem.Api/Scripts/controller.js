@@ -7,7 +7,7 @@ var controllers = (function () {
 
     var updateTimer = null;
 
-    var rootUrl = "http://newssystem.apphb.com/api/";
+    var rootUrl = "http://localhost:62248/api/";
     var Controller = Class.create({
         init: function () {
             this.persister = persisters.get(rootUrl);
